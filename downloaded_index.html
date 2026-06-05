@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html><html lang="en" class="dark"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" as="image" href="/assets/hero-carmeni-BHQqURrD.jpg"/><link rel="stylesheet" href="/assets/styles-DieV-5-e.css" data-precedence="default"/><title>My Star Plus — Stream Movies, Shows &amp; Originals</title><meta name="author" content="Lovable"/><meta property="og:title" content="Lovable App"/><meta property="og:description" content="Pixel Perfect Stream is a premium OTT platform that replicates a reference design pixel-for-pixel."/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary"/><meta name="twitter:site" content="@Lovable"/><meta name="twitter:title" content="Lovable App"/><meta name="twitter:description" content="Pixel Perfect Stream is a premium OTT platform that replicates a reference design pixel-for-pixel."/><meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/eb775884-19a9-40c5-af2c-a7381ec08689/id-preview-539661fa--952c8abf-172f-4589-8b53-514570c31145.lovable.app-1780660155621.png"/><meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/eb775884-19a9-40c5-af2c-a7381ec08689/id-preview-539661fa--952c8abf-172f-4589-8b53-514570c31145.lovable.app-1780660155621.png"/><meta name="description" content="Watch the latest movies, TV shows and Star originals in HD on My Star Plus."/><link rel="modulepreload" href="/assets/index-BSSEM9yA.js"/><link rel="modulepreload" href="/assets/index-DDwZyQoB.js"/><link rel="modulepreload" href="/assets/Logo-DmJaJv9x.js"/><link rel="modulepreload" href="/assets/BottomNav-BpPAhkR9.js"/><link rel="modulepreload" href="/assets/SectionHeader-CgOL4VMC.js"/><link rel="modulepreload" href="/assets/search-BYom_Bi2.js"/><link rel="modulepreload" href="/assets/play-L9fdYReB.js"/><link rel="modulepreload" href="/assets/star-DAgM-Ooi.js"/><link rel="modulepreload" href="/assets/chevron-right-CyayrC4b.js"/>
+<style>
+	@font-face {
+		font-family: 'CameraPlainVariable';
+		src: url('https://cdn.gpteng.co/mcp-widgets/v1/fonts/CameraPlainVariable.woff2') format('woff2');
+		font-weight: 100 900;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	#lovable-badge {
+		--badge-bg: #1b1b1b;
+		--badge-text: #c5c1b9;
+		--badge-text-hover: #dcdad5;
+		--badge-radius: 6px;
+		--badge-padding: 8px;
+		--badge-gap: 6px;
+		--badge-shadow: 
+			0 0 0 1px rgba(0, 0, 0, 0.88),
+			0 1px 0 0 rgba(0, 0, 0, 0.04),
+			0 2px 2px -1px rgba(0, 0, 0, 0.08),
+			0 4px 4px -2px rgba(0, 0, 0, 0.08),
+			0 8px 8px -4px rgba(0, 0, 0, 0.08),
+			0 16px 16px -8px rgba(0, 0, 0, 0.08);
+		--badge-transition-duration: 0.2s;
+		--badge-transition-easing: cubic-bezier(0.16, 1, 0.32, 1);
+		--focus-color: #575ECF;
+		--focus-offset: 2px;
+		--focus-width: 2px;
+		
+		position: fixed;
+		bottom: 12px;
+		right: 12px;
+		height: 24px;
+		display: flex;
+		align-items: center;
+		z-index: 1000000;
+		background-color: var(--badge-bg) !important;
+		color: var(--badge-text) !important;
+		border-radius: var(--badge-radius);
+		box-shadow: var(--badge-shadow) !important;
+		font-size: 12px;
+		font-family: CameraPlainVariable, "CameraPlainVariable Fallback", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+		font-weight: 400 !important;
+		text-transform: none !important;
+		font-feature-settings: normal !important;
+		transform: translateZ(0);
+		will-change: transform, opacity;
+	}
+
+	#lovable-badge-cta {
+		display: flex;
+		align-items: center;
+		gap: var(--badge-gap);
+		padding: 0 var(--badge-padding);
+		height: 100%;
+		color: inherit;
+		text-decoration: none;
+		white-space: nowrap;
+		border-radius: var(--badge-radius) 0 0 var(--badge-radius);
+		transition: 
+			background-color var(--badge-transition-duration) ease,
+			color var(--badge-transition-duration) ease,
+			transform 0.1s ease;
+	}
+
+	#lovable-badge-cta:hover {
+		background: rgba(255, 255, 255, 0.04);
+		color: var(--badge-text-hover);
+	}
+
+	#lovable-badge-cta:active {
+		transform: scale(0.98);
+	}
+
+	#lovable-badge-cta:focus {
+		outline: none;
+	}
+
+	#lovable-badge-cta:focus-visible {
+		outline: var(--focus-width) solid var(--focus-color);
+		outline-offset: var(--focus-offset);
+		z-index: 1;
+	}
+
+	#lovable-badge-text {
+		line-height: 1;
+	}
+
+	#lovable-badge-divider {
+		width: 1px;
+		height: 24px;
+		background-color: rgba(255, 255, 255, 0.04);
+		flex-shrink: 0;
+	}
+
+	#lovable-badge-close {
+		width: 24px;
+		height: 24px;
+		min-width: 24px;
+		min-height: 24px;
+		cursor: pointer;
+		background: none;
+		border: none;
+		padding: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 0 var(--badge-radius) var(--badge-radius) 0;
+		flex-shrink: 0;
+		transition: 
+			background-color var(--badge-transition-duration) ease,
+			transform 0.1s ease;
+	}
+
+	#lovable-badge-close:hover {
+		background: rgba(255, 255, 255, 0.04);
+	}
+
+	#lovable-badge-close:active {
+		transform: scale(0.92);
+	}
+
+	#lovable-badge-close:focus {
+		outline: none;
+	}
+
+	#lovable-badge-close:focus-visible {
+		outline: var(--focus-width) solid var(--focus-color);
+		outline-offset: calc(var(--focus-offset) * -1);
+		z-index: 1;
+	}
+
+	#lovable-badge-close svg path {
+		fill: var(--badge-text);
+		transition: fill var(--badge-transition-duration) ease;
+	}
+
+	#lovable-badge-close:hover svg path {
+		fill: var(--badge-text-hover);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		#lovable-badge-cta,
+		#lovable-badge-close,
+		#lovable-badge-close svg path {
+			transition: none;
+		}
+		
+		#lovable-badge-cta:active,
+		#lovable-badge-close:active {
+			transform: none;
+		}
+	}
+
+	@media (prefers-contrast: high) {
+		#lovable-badge {
+			--badge-bg: #000;
+			--badge-text: #fff;
+			--badge-text-hover: #fff;
+			border: 2px solid currentColor;
+		}
+		
+		#lovable-badge-cta:focus-visible,
+		#lovable-badge-close:focus-visible {
+			outline-width: 3px;
+		}
+	}
+</style>
+<script defer src="/~flock.js" data-proxy-url="/~api/analytics"></script><script defer src="/__l5e/events.js" data-artifact-kind="dwl_content_hash" data-artifact-id="f86aa9392b80d751de7623aa7df50c928cc3fc3dec343f962e65924a70767a7b" data-commit-sha="268e36a684369cd4952dd5cf8803ab2783a3a25e" data-context-token="v1.eyJwcm9qZWN0X2lkIjoiOTUyYzhhYmYtMTcyZi00NTg5LThiNTMtNTE0NTcwYzMxMTQ1IiwiYXJ0aWZhY3Rfa2luZCI6ImR3bF9jb250ZW50X2hhc2giLCJhcnRpZmFjdF9pZCI6ImY4NmFhOTM5MmI4MGQ3NTFkZTc2MjNhYTdkZjUwYzkyOGNjM2ZjM2RlYzM0M2Y5NjJlNjU5MjRhNzA3NjdhN2IiLCJjb21taXRfc2hhIjoiMjY4ZTM2YTY4NDM2OWNkNDk1MmRkNWNmODgwM2FiMjc4M2EzYTI1ZSIsImV4cCI6MTc4MDY2NTA0N30.ekYiDGxLH0pZB8MG4C67v2L8BlCd24m7Z9hgLiT0VxI"></script></head><body class="bg-background text-foreground"><!--$--><div class="min-h-screen bg-black"><div class="mx-auto flex min-h-screen w-full max-w-[440px] flex-col bg-background sm:my-6 sm:min-h-[860px] sm:rounded-[44px] sm:shadow-[0_30px_90px_-20px_rgba(0,0,0,0.8)] sm:ring-1 sm:ring-white/5"><div class="relative flex h-11 items-center justify-between px-6 pt-2 text-white"><span class="text-[15px] font-semibold tabular-nums">9:41</span><div class="absolute left-1/2 top-1.5 h-6 w-[110px] -translate-x-1/2 rounded-full bg-black"></div><div class="flex items-center gap-1.5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-signal h-3.5 w-3.5" aria-hidden="true"><path d="M2 20h.01"></path><path d="M7 20v-4"></path><path d="M12 20v-8"></path><path d="M17 20V8"></path><path d="M22 4v16"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wifi h-3.5 w-3.5" aria-hidden="true"><path d="M12 20h.01"></path><path d="M2 8.82a15 15 0 0 1 20 0"></path><path d="M5 12.859a10 10 0 0 1 14 0"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path></svg><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-battery-full h-4 w-4" aria-hidden="true"><path d="M10 10v4"></path><path d="M14 10v4"></path><path d="M22 14v-4"></path><path d="M6 10v4"></path><rect x="2" y="6" width="16" height="12" rx="2"></rect></svg></div></div><header class="flex items-center justify-between px-5 pt-2"><button aria-label="Menu" class="text-white/90"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu h-7 w-7" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button><div class="flex items-center gap-2 "><svg viewBox="0 0 32 32" class="h-7 w-7 drop-shadow-[0_0_8px_rgba(255,120,40,0.6)]"><defs><linearGradient id="lg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#ffd24a"></stop><stop offset="0.6" stop-color="#ff6a00"></stop><stop offset="1" stop-color="#d40000"></stop></linearGradient></defs><path fill="url(#lg)" d="M16 2l3.6 9.2 9.9.6-7.6 6.4 2.5 9.6L16 22.6 7.6 27.8l2.5-9.6L2.5 11.8l9.9-.6z"></path></svg><div class="leading-none"><div class="text-[15px] font-semibold tracking-tight text-white">My Star Plus</div><div class="mt-[3px] h-[2px] w-[110px] rounded-full bg-gradient-to-r from-red-500 via-fuchsia-500 to-blue-500"></div></div></div><div class="flex items-center gap-3 text-white/90"><a aria-label="Search" href="/search"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search h-6 w-6" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg></a><button aria-label="Notifications" class="relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell h-6 w-6" aria-hidden="true"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path></svg><span class="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">3</span></button></div></header><div class="px-5 pt-4"><a href="/search" class="flex h-12 items-center gap-3 rounded-2xl bg-surface-2 px-4 ring-1 ring-white/5"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search h-5 w-5 text-white/55" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg><span class="flex-1 text-[14px] text-white/55">Search movies, shows, genres…</span><span class="text-white/55">≡</span></a></div><section class="px-5 pt-4"><div class="relative overflow-hidden rounded-2xl ring-1 ring-white/5"><img src="/assets/hero-carmeni-BHQqURrD.jpg" alt="Carmeni Selvam" class="h-[360px] w-full object-cover object-right" width="1280" height="768"/><div class="absolute inset-0 bg-gradient-to-r from-black/95 via-black/60 to-transparent"></div><div class="absolute inset-0 flex flex-col justify-between p-4"><div class="flex items-start justify-between"><span class="rounded-md bg-primary px-2.5 py-1 text-[10px] font-bold tracking-wider text-primary-foreground">FEATURED TODAY</span><span class="rounded-full bg-black/40 px-2 py-0.5 text-[11px] text-white/90 ring-1 ring-white/10">1/5</span></div><div><h1 class="text-[28px] font-bold leading-tight text-white">Carmeni Selvam</h1><p class="mt-2 max-w-[78%] text-[13px] leading-snug text-white/85">A 2026 Tamil feel-good emotional drama that explores the impact of sudden financial greed on a simple, contented family.</p><div class="mt-4 flex items-center gap-2"><a href="/watch/carmeni-selvam/1" class="flex h-11 items-center gap-2 rounded-xl bg-primary px-5 text-[14px] font-semibold text-primary-foreground shadow-[0_8px_24px_-8px_oklch(0.62_0.24_27/0.8)]"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-play h-4 w-4 fill-current" aria-hidden="true"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"></path></svg> Play Now</a><a href="/title/carmeni-selvam" class="flex h-11 items-center gap-2 rounded-xl bg-white/10 px-5 text-[14px] font-medium text-white ring-1 ring-white/15 backdrop-blur"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-info h-4 w-4" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg> More Info</a></div><div class="mt-4 flex items-center gap-1.5"><span class="h-1 w-5 rounded-full bg-primary"></span><span class="h-1 w-1.5 rounded-full bg-white/30"></span><span class="h-1 w-1.5 rounded-full bg-white/30"></span><span class="h-1 w-1.5 rounded-full bg-white/30"></span><span class="h-1 w-1.5 rounded-full bg-white/30"></span></div></div></div></div></section><section class="pt-6"><div class="flex items-center justify-between px-5"><div class="relative flex items-center gap-2 pl-3"><span class="absolute left-0 top-1 h-5 w-[3px] rounded-full bg-primary"></span><h2 class="text-[18px] font-semibold tracking-tight text-white">Categories</h2></div><a href="/movies" class="flex items-center gap-1 text-[13px] text-white/85">View all <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-4 w-4" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a></div><div class="mt-3 flex gap-3 overflow-x-auto px-5 pb-1 [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden"><div class="flex w-[64px] flex-shrink-0 flex-col items-center gap-2"><div class="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-gradient-to-br from-red-500 to-red-600 text-[22px] text-white shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">😄</div><span class="text-[12px] text-white/90">Comedy</span></div><div class="flex w-[64px] flex-shrink-0 flex-col items-center gap-2"><div class="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 text-[22px] text-white shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">🎬</div><span class="text-[12px] text-white/90">Action</span></div><div class="flex w-[64px] flex-shrink-0 flex-col items-center gap-2"><div class="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-purple-700 text-[22px] text-white shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">🎭</div><span class="text-[12px] text-white/90">Drama</span></div><div class="flex w-[64px] flex-shrink-0 flex-col items-center gap-2"><div class="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-blue-600 text-[22px] text-white shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">♥</div><span class="text-[12px] text-white/90">Romance</span></div><div class="flex w-[64px] flex-shrink-0 flex-col items-center gap-2"><div class="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-gradient-to-br from-green-400 to-emerald-600 text-[22px] text-white shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">👨‍👩‍👧</div><span class="text-[12px] text-white/90">Family</span></div><div class="flex w-[64px] flex-shrink-0 flex-col items-center gap-2"><div class="flex h-[60px] w-[60px] items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-indigo-700 text-[22px] text-white shadow-[0_8px_18px_-6px_rgba(0,0,0,0.6)]">•••</div><span class="text-[12px] text-white/90">More</span></div></div></section><section class="pt-5"><div class="flex items-center justify-between px-5"><div class="relative flex items-center gap-2 pl-3"><span class="absolute left-0 top-1 h-5 w-[3px] rounded-full bg-primary"></span><h2 class="text-[18px] font-semibold tracking-tight text-white">Trending Now</h2></div><a href="/movies" class="flex items-center gap-1 text-[13px] text-white/85">View all <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-right h-4 w-4" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></a></div><div class="mt-3 flex gap-3 overflow-x-auto px-5 pb-2 [scrollbar-width:none] [&amp;::-webkit-scrollbar]:hidden"><a href="/title/carmeni-selvam" class="w-[140px] flex-shrink-0"><div class="relative aspect-[2/3] overflow-hidden rounded-xl ring-1 ring-white/5"><img src="/assets/poster-carmeni-CVJi6ABh.jpg" alt="Carmeni Selvam" loading="lazy" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"/><span class="absolute right-2 top-2 rounded-md bg-sky-500/90 px-1.5 py-0.5 text-[10px] font-bold text-white">HD</span></div><div class="mt-2 text-[14px] font-semibold text-white">Carmeni Selvam</div><div class="text-[11px] text-white/60">2026<!-- --> • <!-- -->Tamil</div><div class="mt-1 flex items-center gap-1 text-[12px] text-white/90"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-3.5 w-3.5 fill-yellow-400 text-yellow-400" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg> <!-- -->8.7</div></a><a href="/title/spider-noir" class="w-[140px] flex-shrink-0"><div class="relative aspect-[2/3] overflow-hidden rounded-xl ring-1 ring-white/5"><img src="/assets/poster-spider-noir-ClZ0BCuZ.jpg" alt="Spider-Noir" loading="lazy" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"/><span class="absolute right-2 top-2 rounded-md bg-sky-500/90 px-1.5 py-0.5 text-[10px] font-bold text-white">HD</span></div><div class="mt-2 text-[14px] font-semibold text-white">Spider-Noir</div><div class="text-[11px] text-white/60">2026<!-- --> • <!-- -->English</div><div class="mt-1 flex items-center gap-1 text-[12px] text-white/90"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-3.5 w-3.5 fill-yellow-400 text-yellow-400" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg> <!-- -->9.1</div></a><a href="/title/kara" class="w-[140px] flex-shrink-0"><div class="relative aspect-[2/3] overflow-hidden rounded-xl ring-1 ring-white/5"><img src="/assets/poster-kara-7790g99y.jpg" alt="Kara" loading="lazy" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"/><span class="absolute right-2 top-2 rounded-md bg-sky-500/90 px-1.5 py-0.5 text-[10px] font-bold text-white">HD</span></div><div class="mt-2 text-[14px] font-semibold text-white">Kara</div><div class="text-[11px] text-white/60">2026<!-- --> • <!-- -->Tamil</div><div class="mt-1 flex items-center gap-1 text-[12px] text-white/90"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-3.5 w-3.5 fill-yellow-400 text-yellow-400" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg> <!-- -->8.6</div></a><a href="/title/valiant" class="w-[140px] flex-shrink-0"><div class="relative aspect-[2/3] overflow-hidden rounded-xl ring-1 ring-white/5"><img src="/assets/poster-valiant-B0DccbXL.jpg" alt="Valiant" loading="lazy" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"/><span class="absolute right-2 top-2 rounded-md bg-sky-500/90 px-1.5 py-0.5 text-[10px] font-bold text-white">HD</span></div><div class="mt-2 text-[14px] font-semibold text-white">Valiant</div><div class="text-[11px] text-white/60">2026<!-- --> • <!-- -->Hindi</div><div class="mt-1 flex items-center gap-1 text-[12px] text-white/90"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star h-3.5 w-3.5 fill-yellow-400 text-yellow-400" aria-hidden="true"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg> <!-- -->8.5</div></a></div></section><div class="h-4"></div><nav class="sticky bottom-0 z-40 border-t border-white/5 bg-[oklch(0.07_0_0)]/95 backdrop-blur"><ul class="mx-auto flex max-w-[480px] items-stretch justify-between px-4 pb-3 pt-2"><li class="flex-1"><a class="flex flex-col items-center gap-1 active" href="/" data-status="active" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house h-[22px] w-[22px] text-primary" aria-hidden="true"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg><span class="text-[11px] text-primary font-semibold">Home</span><span class="mt-0.5 h-[3px] w-6 rounded-full bg-primary"></span></a></li><li class="flex-1"><a href="/movies" class="flex flex-col items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-film h-[22px] w-[22px] text-white/85" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M7 3v18"></path><path d="M3 7.5h4"></path><path d="M3 12h18"></path><path d="M3 16.5h4"></path><path d="M17 3v18"></path><path d="M17 7.5h4"></path><path d="M17 16.5h4"></path></svg><span class="text-[11px] text-white/85">Movies</span><span class="mt-0.5 h-[3px] w-6 rounded-full bg-transparent"></span></a></li><li class="flex-1"><a href="/tv" class="flex flex-col items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tv h-[22px] w-[22px] text-white/85" aria-hidden="true"><path d="m17 2-5 5-5-5"></path><rect width="20" height="15" x="2" y="7" rx="2"></rect></svg><span class="text-[11px] text-white/85">TV Shows</span><span class="mt-0.5 h-[3px] w-6 rounded-full bg-transparent"></span></a></li><li class="flex-1"><a href="/my-list" class="flex flex-col items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark h-[22px] w-[22px] text-white/85" aria-hidden="true"><path d="M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z"></path></svg><span class="text-[11px] text-white/85">My List</span><span class="mt-0.5 h-[3px] w-6 rounded-full bg-transparent"></span></a></li><li class="flex-1"><a href="/profile" class="flex flex-col items-center gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user h-[22px] w-[22px] text-white/85" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span class="text-[11px] text-white/85">Profile</span><span class="mt-0.5 h-[3px] w-6 rounded-full bg-transparent"></span></a></li></ul></nav></div></div><script>(function(t){let s;try{s=JSON.parse(sessionStorage.getItem(t.storageKey)||"{}")}catch(e){console.error(e);return}const c=t.key||window.history.state?.__TSR_key,r=c?s[c]:void 0;if(t.shouldScrollRestoration&&r&&typeof r=="object"&&Object.keys(r).length>0){for(const e in r){const o=r[e];if(!o||typeof o!="object")continue;const l=o.scrollX,i=o.scrollY;if(!(!Number.isFinite(l)||!Number.isFinite(i))){if(e==="window")window.scrollTo({top:i,left:l,behavior:t.behavior});else if(e){let n;try{n=document.querySelector(e)}catch{continue}n&&(n.scrollLeft=l,n.scrollTop=i)}}}return}const a=window.location.hash.split("#",2)[1];if(a){const e=window.history.state?.__hashScrollIntoViewOptions??!0;if(e){const o=document.getElementById(a);o&&o.scrollIntoView(e)}return}window.scrollTo({top:0,left:0,behavior:t.behavior})})({"storageKey":"tsr-scroll-restoration-v1_3","shouldScrollRestoration":true});document.currentScript.remove()</script><!--/$--><script class="$tsr" id="$tsr-stream-barrier">(self.$R=self.$R||{})["tsr"]=[];self.$_TSR={h(){this.hydrated=!0,this.c()},e(){this.streamEnded=!0,this.c()},c(){this.hydrated&&this.streamEnded&&(delete self.$_TSR,delete self.$R.tsr)},p(e){this.initialized?e():this.buffer.push(e)},buffer:[]};$_TSR.router=($R=>$R[0]={manifest:$R[1]={routes:$R[2]={__root__:$R[3]={preloads:$R[4]=["/assets/index-BSSEM9yA.js"],assets:$R[5]=[$R[6]={tag:"script",attrs:$R[7]={type:"module",async:!0},children:"import(\"/assets/index-BSSEM9yA.js\")"}]},"/":$R[8]={preloads:$R[9]=["/assets/index-DDwZyQoB.js","/assets/Logo-DmJaJv9x.js","/assets/BottomNav-BpPAhkR9.js","/assets/SectionHeader-CgOL4VMC.js","/assets/search-BYom_Bi2.js","/assets/play-L9fdYReB.js","/assets/star-DAgM-Ooi.js","/assets/chevron-right-CyayrC4b.js"]}}},matches:$R[10]=[$R[11]={i:"__root__ ",u:1780661447594,s:"success",ssr:!0},$R[12]={i:"  ",u:1780661447594,s:"success",ssr:!0}],lastMatchId:"  "})($R["tsr"]);$_TSR.e();document.currentScript.remove()</script><script type="module" async="">import("/assets/index-BSSEM9yA.js")</script>
+<aside 
+	id="lovable-badge" 
+	role="complementary"
+	dir="ltr"
+	lang="en"
+	aria-label="Edit with Lovable">
+	<a 
+		id="lovable-badge-cta" 
+		target="_blank" 
+		href="https://lovable.dev/projects/952c8abf-172f-4589-8b53-514570c31145?utm_source=lovable-badge"
+		rel="noopener nofollow"
+		aria-label="Edit with Lovable">
+		<span id="lovable-badge-text">Edit with</span>
+		<svg xmlns="http://www.w3.org/2000/svg" width="52" height="16" fill="none" viewBox="0 0 52 16">
+  <path fill="#FCFBF8" fill-rule="evenodd" d="M20.318 5.25c.643 0 1.206.14 1.69.418a2.81 2.81 0 0 1 1.118 1.191c.266.513.4 1.115.4 1.807s-.134 1.296-.4 1.812a2.81 2.81 0 0 1-1.118 1.193c-.484.278-1.047.418-1.69.418s-1.208-.14-1.695-.418a2.85 2.85 0 0 1-1.125-1.193c-.262-.516-.393-1.12-.393-1.812s.131-1.294.393-1.807a2.848 2.848 0 0 1 1.125-1.191c.487-.279 1.052-.418 1.695-.418Zm0 1.425c-.27 0-.504.076-.7.228-.193.147-.34.37-.443.67-.102.295-.153.66-.153 1.093 0 .435.05.801.153 1.1.102.3.25.524.443.676.196.147.43.22.7.22.27 0 .502-.073.694-.22.193-.152.341-.375.443-.67.103-.299.153-.667.153-1.106 0-.65-.112-1.145-.337-1.481a1.08 1.08 0 0 0-.953-.51ZM32.7 5.25c.61 0 1.127.1 1.549.3.422.197.74.48.953.849.217.368.325.809.325 1.32v2.704c0 .29.02.562.062.812.044.245.108.4.19.466V12h-1.935a5.895 5.895 0 0 1-.105-.684 7.745 7.745 0 0 1-.02-.228 2.293 2.293 0 0 1-.151.203c-.205.242-.47.437-.793.584-.32.143-.685.215-1.094.215-.406 0-.77-.08-1.094-.24a1.845 1.845 0 0 1-.756-.682 1.984 1.984 0 0 1-.27-1.045c0-.606.178-1.069.535-1.388.356-.324.87-.534 1.542-.633l1.125-.16c.225-.032.403-.074.534-.123a.622.622 0 0 0 .288-.196.549.549 0 0 0 .093-.327.65.65 0 0 0-.11-.367.702.702 0 0 0-.32-.27c-.14-.07-.31-.105-.51-.105-.32 0-.576.083-.768.251-.193.164-.298.39-.314.676h-1.923c.016-.434.147-.82.393-1.155.25-.34.596-.604 1.039-.792.442-.189.954-.283 1.535-.283Zm.99 3.498a.98.98 0 0 1-.215.14 2.49 2.49 0 0 1-.584.178l-.473.092c-.315.061-.553.156-.713.283-.155.127-.233.305-.233.534 0 .23.084.412.252.547.168.135.383.203.645.203s.494-.058.694-.173c.201-.118.355-.282.461-.49.11-.21.166-.448.166-.714v-.6Zm4.526-2.375c.065-.125.138-.243.221-.349.197-.25.437-.44.719-.571.282-.135.6-.203.952-.203.528 0 .988.138 1.377.412.389.275.688.67.896 1.186.21.512.314 1.12.314 1.824 0 .7-.107 1.309-.32 1.825-.213.512-.518.906-.915 1.18-.393.275-.854.412-1.383.412-.352 0-.667-.062-.946-.184a1.832 1.832 0 0 1-.7-.554 2.2 2.2 0 0 1-.234-.383V12h-1.843V3h1.862v3.373Zm1.284.296c-.274 0-.51.085-.707.253-.192.163-.338.397-.436.7a3.376 3.376 0 0 0-.148 1.05c0 .406.05.759.148 1.058.098.299.243.53.436.694.197.164.433.246.707.246.279 0 .512-.082.7-.246.193-.164.336-.395.43-.694.099-.3.148-.652.148-1.058 0-.405-.05-.757-.147-1.056-.095-.299-.238-.53-.43-.694a1.015 1.015 0 0 0-.7-.253Zm9.416-1.419c.602 0 1.136.131 1.604.393.466.262.829.643 1.086 1.143.263.5.394 1.097.394 1.794 0 .25-.002.449-.006.596H47.51c.018.288.071.538.164.75a1.3 1.3 0 0 0 .491.596c.214.13.465.196.757.196.319 0 .583-.082.792-.246.209-.167.34-.403.393-.706h1.862a2.48 2.48 0 0 1-.485 1.235 2.54 2.54 0 0 1-1.051.805c-.439.188-.949.283-1.53.283-.655 0-1.225-.125-1.708-.375a2.672 2.672 0 0 1-1.13-1.143c-.267-.508-.4-1.137-.4-1.887 0-.712.14-1.327.418-1.843a2.86 2.86 0 0 1 1.155-1.186c.491-.27 1.051-.405 1.678-.405Zm-.044 1.345c-.274 0-.516.068-.725.203a1.29 1.29 0 0 0-.479.59 2.045 2.045 0 0 0-.132.498h2.562a1.873 1.873 0 0 0-.138-.602 1.061 1.061 0 0 0-.418-.516 1.243 1.243 0 0 0-.67-.173Z" clip-rule="evenodd"/>
+  <path fill="#FCFBF8" d="m26.605 9.995 1.342-4.566h1.924L27.628 12h-2.07l-2.33-6.57h1.98l1.397 4.565Zm-13.013.143h2.256c1.632 0 1.421 1.837 1.418 1.861h-5.603V3h1.93v7.138Zm31.516 1.861h-1.862V3h1.862v8.999Z"/>
+  <path fill="url(#a)" fill-rule="evenodd" d="M2.7 3c1.492 0 2.7 1.192 2.7 2.663v1.012h.9c1.49 0 2.7 1.192 2.7 2.662S7.791 12 6.3 12H0V5.663C0 4.193 1.209 3 2.7 3Z" clip-rule="evenodd"/>
+  <defs>
+    <radialGradient id="a" cx="0" cy="0" r="1" gradientTransform="matrix(-1.54236 7.07838 -10.231 -2.15602 4.627 5.022)" gradientUnits="userSpaceOnUse">
+      <stop offset=".106" stop-color="#FE7B02"/>
+      <stop offset=".394" stop-color="#FE3F21"/>
+      <stop offset=".608" stop-color="#F858BC"/>
+      <stop offset=".929" stop-color="#575ECF"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+
+	</a>
+	
+	<span id="lovable-badge-divider" aria-hidden="true"></span>
+	
+	<button 
+		id="lovable-badge-close"
+		aria-label="Dismiss"
+		title="Dismiss"
+		type="button">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16" aria-hidden="true">
+			<path d="M10.646 4.646a.5.5 0 1 1 .707.708L8.707 8l2.646 2.646a.5.5 0 1 1-.707.707L8 8.707l-2.646 2.646a.5.5 0 1 1-.708-.707L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708L8 7.293l2.646-2.647Z"/>
+		</svg>
+	</button>
+</aside>
+<script>
+	// Don't show the lovable-badge if the page is in an iframe or if it's being rendered by puppeteer (screenshot service)
+	if (window.self !== window.top || navigator.userAgent.includes('puppeteer')) {
+		// the page is in an iframe
+		var badge = document.getElementById('lovable-badge');
+		if (badge) {
+			badge.style.display = 'none';
+		}
+	}
+
+	// Add click event listener to close button with animation
+	var closeButton = document.getElementById('lovable-badge-close');
+	if (closeButton) {
+		closeButton.addEventListener('click', function(event) {
+			event.preventDefault();
+			event.stopPropagation();
+			var badge = document.getElementById('lovable-badge');
+			if (badge) {
+				badge.classList.add('closing');
+				setTimeout(function() {
+					if (badge) {
+						badge.style.display = 'none';
+					}
+				}, 240);
+			}
+		});
+	}
+</script>
+</body></html>

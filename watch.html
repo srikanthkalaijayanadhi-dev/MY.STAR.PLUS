@@ -2,284 +2,426 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Watch Now | HEARTBEAT Premium</title>
-    <!-- Google Fonts -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>My Star Plus - Details</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Main Stylesheet -->
-    <!-- Performance Optimization: Preconnect to ad domains -->
-    <link rel="preconnect" href="https://pl29146922.profitablecpmratenetwork.com">
-    <link rel="preconnect" href="https://pl29146923.profitablecpmratenetwork.com">
-    <link rel="preconnect" href="https://pl29146924.profitablecpmratenetwork.com">
-    <link rel="preconnect" href="https://www.highperformanceformat.com">
-    <link rel="dns-prefetch" href="https://pl29146922.profitablecpmratenetwork.com">
-    <link rel="dns-prefetch" href="https://pl29146923.profitablecpmratenetwork.com">
-    <link rel="dns-prefetch" href="https://pl29146924.profitablecpmratenetwork.com">
-    <link rel="dns-prefetch" href="https://www.highperformanceformat.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0A0C10;
+            --text-main: #FFFFFF;
+            --text-muted: #9BA1A6;
+            --accent-red: #E50914;
+            --btn-grey: #1A1D24;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
 
-    <link rel="stylesheet" href="style.css">
-    <!-- Popunder Ad -->
-    <script src="https://pl29146922.profitablecpmratenetwork.com/45/8c/9f/458c9f092462724a78a8ae9c2bf80302.js" async></script>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            padding-bottom: 90px;
+        }
+
+        /* Loading State */
+        #loading {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* --- Mockup Frame (Optional for desktop) --- */
+        @media (min-width: 600px) {
+            body { display: flex; justify-content: center; background-color: #111; padding: 20px 0; }
+            .mobile-frame {
+                width: 430px; height: 932px; background-color: var(--bg-color);
+                border: 12px solid #222; border-radius: 50px; overflow-y: auto;
+                position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            }
+            .mobile-frame::-webkit-scrollbar { display: none; }
+            .bottom-nav { position: absolute !important; width: 406px !important; border-radius: 0 0 38px 38px; }
+        }
+
+        .mobile-frame { min-height: 100vh; display: flex; flex-direction: column; position: relative; }
+
+        /* --- Header & Top Bar --- */
+        .status-bar { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px 10px; font-size: 14px; font-weight: 600; z-index: 10; }
+        .dynamic-island { width: 120px; height: 32px; background-color: #000; border-radius: 20px; position: absolute; left: 50%; transform: translateX(-50%); top: 10px; }
+        .status-icons { display: flex; gap: 6px; align-items: center; }
+        
+        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
+        .header-icon { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .logo-container { display: flex; flex-direction: column; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 6px; font-size: 18px; font-weight: 700; font-style: italic; }
+        .star-icon { color: #FF9D00; font-size: 22px; filter: drop-shadow(0 0 8px rgba(255, 157, 0, 0.8)); }
+
+        .bg-glow {
+            position: absolute; top: 0; left: 0; width: 100%; height: 500px;
+            background: radial-gradient(circle at center, rgba(30, 30, 40, 0.5) 0%, rgba(10, 12, 16, 1) 70%);
+            z-index: -1; pointer-events: none;
+        }
+
+        /* --- Shared Styles --- */
+        .badge-grey { background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+        .btn-primary { width: 100%; background: var(--accent-red); color: white; padding: 14px; border-radius: 12px; font-size: 16px; font-weight: bold; border: none; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+        .btn-secondary { flex: 1; background: var(--btn-grey); color: white; padding: 12px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer; }
+
+        /* --- Movie UI Layout (KARA style) --- */
+        .movie-hero { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .movie-poster { width: 320px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .movie-title { font-size: 32px; font-weight: 800; margin-top: 24px; text-align: center; }
+        .movie-tags { display: flex; gap: 12px; margin-top: 10px; justify-content: center; align-items: center; }
+        .movie-meta { display: flex; justify-content: space-between; background: var(--btn-grey); padding: 16px 20px; border-radius: 12px; width: 100%; max-width: 340px; margin-top: 20px; border: 1px solid var(--border-color); }
+        .movie-actions { width: 100%; max-width: 340px; margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+
+        /* --- Series UI Layout (Spider-Noir style) --- */
+        .series-hero { display: flex; gap: 16px; padding: 20px; align-items: flex-start; }
+        .series-poster { width: 140px; border-radius: 12px; position: relative; flex-shrink: 0; box-shadow: 0 4px 20px rgba(0,0,0,0.6); }
+        .series-poster-img { width: 100%; border-radius: 12px; display: block; }
+        .series-poster-play { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 40px; height: 40px; border: 2px solid white; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); cursor: pointer; }
+        .series-details { flex: 1; display: flex; flex-direction: column; }
+        .series-title { font-size: 26px; font-weight: bold; line-height: 1.2; margin-bottom: 8px; }
+        .series-badges { display: flex; gap: 6px; margin-bottom: 8px; }
+        .s-badge-red { background: var(--accent-red); color: white; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .s-badge-outline { border: 1px solid rgba(255,255,255,0.3); color: #ccc; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+        .series-genres { font-size: 12px; color: #aaa; margin-bottom: 8px; }
+        .series-genres span { color: var(--accent-red); margin: 0 4px; }
+        .series-ratings { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+        .series-synopsis { font-size: 12px; color: #999; line-height: 1.5; }
+        .series-readmore { color: var(--accent-red); text-decoration: none; }
+
+        /* Episodes Section */
+        .episodes-section { padding: 20px; }
+        .episodes-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .episodes-title { display: flex; align-items: center; gap: 8px; font-size: 18px; font-weight: bold; }
+        .episodes-season { display: flex; align-items: center; gap: 4px; font-size: 14px; color: white; cursor: pointer; }
+        
+        .ep-card { display: flex; gap: 12px; padding: 10px; border-radius: 12px; margin-bottom: 12px; background: #0A0C10; border: 1px solid rgba(255,255,255,0.05); align-items: center; cursor: pointer; transition: all 0.2s; }
+        .ep-card.active { border: 1px solid var(--accent-red); box-shadow: 0 0 12px rgba(229,9,20,0.2); }
+        .ep-thumb { width: 110px; height: 65px; border-radius: 8px; position: relative; overflow: hidden; flex-shrink: 0; }
+        .ep-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .ep-now-playing { position: absolute; top: 0; left: 0; background: var(--accent-red); color: white; font-size: 8px; font-weight: bold; padding: 2px 4px; border-radius: 0 0 4px 0; }
+        .ep-play-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; }
+        .ep-details { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+        .ep-number { color: var(--accent-red); font-size: 10px; font-weight: bold; }
+        .ep-title { font-size: 13px; font-weight: 600; color: white; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+        .ep-desc { font-size: 10px; color: #888; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .ep-actions { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; height: 100%; gap: 10px; }
+        .ep-play-btn { width: 28px; height: 28px; background: var(--accent-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .ep-duration { font-size: 10px; color: #888; margin-top: auto; }
+
+        /* --- More Like This Section --- */
+        .more-like-this { margin-top: 10px; }
+        .section-header-mlt { display: flex; justify-content: space-between; align-items: center; padding: 0 20px; margin-bottom: 16px; }
+        .section-title-mlt { display: flex; align-items: center; font-size: 16px; font-weight: 700; border-left: 3px solid var(--accent-red); padding-left: 8px; line-height: 1; }
+        .view-all-mlt { color: var(--text-muted); font-size: 12px; text-decoration: none; }
+        .mlt-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 0 20px 20px; scroll-snap-type: x mandatory; }
+        .mlt-scroll::-webkit-scrollbar { display: none; }
+        .mlt-card { flex-shrink: 0; width: 110px; scroll-snap-align: start; text-align: center; cursor: pointer; transition: transform 0.2s; }
+        .mlt-card:active { transform: scale(0.95); }
+        .mlt-card img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .mlt-rating { font-size: 11px; font-weight: bold; margin-top: 6px; display: flex; align-items: center; justify-content: center; gap: 4px; color: white; }
+        .mlt-rating span { color: var(--accent-red); }
+
+        /* --- Bottom Navigation --- */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background-color: #050505; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-around; align-items: center; padding: 12px 10px 24px; z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #666; text-decoration: none; position: relative; transition: color 0.2s; }
+        .nav-item.active { color: var(--accent-red); }
+        .nav-icon { width: 24px; height: 24px; stroke: currentColor; stroke-width: 2; fill: none; }
+        .nav-label { font-size: 10px; font-weight: 500; }
+        .nav-indicator { width: 20px; height: 3px; background-color: var(--accent-red); border-radius: 2px; position: absolute; bottom: -8px; opacity: 0; transition: opacity 0.2s; }
+        .nav-item.active .nav-indicator { opacity: 1; }
+    </style>
 </head>
-<body class="admin-body">
-    <!-- Watch Backdrop -->
-    <div id="watch-backdrop" class="watch-backdrop"></div>
+<body>
+    <div class="mobile-frame">
+        <div class="bg-glow"></div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar scrolled">
-        <div class="nav-container">
-            <div class="nav-left">
-                <a href="index.html" class="logo">
-                    <img src="https://i.ibb.co/8JWh91Z/Untitled-design.png" alt="HEART BEAT" class="logo-img">
-                </a>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#">Movies</a></li>
-                    <li><a href="#">Series</a></li>
-                </ul>
+
+        <!-- App Header -->
+        <header>
+            <button class="header-icon" onclick="window.location.href='index.html'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <div class="logo-container">
+                <img src="https://i.ibb.co/8JWh91Z/Untitled-design.png" alt="My Star Plus Logo" style="height: 36px; object-fit: contain;">
             </div>
-            <div class="nav-right">
-                <a href="index.html" class="btn btn-secondary">
-                    <span class="btn-icon">⬅️</span>
-                    <span class="btn-text">← Back</span>
-                </a>
-            </div>
-        </div>
-    </nav>
+            <button class="header-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </button>
+        </header>
 
-    <main id="watch-content" class="container">
-        <!-- Watch Top Ad Slot -->
-        <div id="ad-watch_top" class="ad-placement"></div>
-
-        <div class="watch-container">
-            <div class="watch-poster">
-                <img id="watch-poster-img" src="" alt="Poster">
-            </div>
-
-            <div class="watch-info">
-                <h1 id="watch-title" class="watch-title">Loading...</h1>
-                <div class="modal-meta watch-meta">
-                    <span id="watch-quality" class="badge">4K Ultra HD</span>
-                    <span id="watch-date" class="publish-date">Published: ...</span>
-                    <span id="watch-category" class="badge">Category</span>
-                </div>
-                
-                <div class="watch-actions">
-                    <button id="watch-now-btn" class="btn btn-primary btn-large">▶ Watch Now</button>
-                    <button class="btn btn-secondary btn-large">+ Add to List</button>
-                </div>
-
-                <div class="watch-about-section">
-                    <h3 class="watch-about-title">About Series</h3>
-                    <p id="watch-desc" class="watch-desc">
-                        Loading description...
-                    </p>
-                </div>
-
-                <!-- Square Ad in Info -->
-                <div class="ad-placement square" data-ad-type="square"></div>
-
-                <!-- Episodes Section -->
-                <div id="episodes-section" class="hidden-initial mt-3">
-                    <h3 class="watch-about-title">Episodes</h3>
-                    <div id="episodes-grid" class="episodes-grid">
-                        <!-- Dynamic episodes -->
-                    </div>
-                </div>
-            </div>
+        <!-- Loading State -->
+        <div id="loading">
+            <div style="font-size:2rem; margin-bottom:1rem;">⏳</div>
+            <p>Loading content...</p>
         </div>
 
-        <!-- Watch Bottom Ad Slot -->
-        <div id="ad-watch_bottom" class="ad-placement"></div>
+        <!-- Main Content Area (Injected via JS) -->
+        <div id="dynamic-content" style="display: none; flex-direction: column;"></div>
 
-        <!-- Native Ad Slot -->
-        <div class="ad-placement" data-ad-type="native"></div>
-
-        <!-- Recommendations Section -->
-        <section class="recommendations-section">
-            <h2 class="row-title">Recommended for You</h2>
-            <div id="recommendations-container" class="row-cards">
+        <!-- More Like This Section -->
+        <section class="more-like-this" id="mlt-section" style="display: none;">
+            <div class="section-header-mlt">
+                <h2 class="section-title-mlt">More Like This</h2>
+                <a href="index.html" class="view-all-mlt">View all <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></a>
+            </div>
+            <div class="mlt-scroll" id="recommendations-scroll">
                 <!-- Recommendations will be injected here -->
             </div>
         </section>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer footer-container watch-footer">
-        <p>&copy; 2026 HEARTBEAT Premium. All rights reserved.</p>
-    </footer>
-
-    <!-- Anti-Adblock Notice -->
-    <div id="adblock-notice" class="adblock-notice hidden">
-        <div class="adblock-content">
-            <div class="adblock-icon">🛡️</div>
-            <h2>Ad-Blocker Detected</h2>
-            <p>Our platform is free because of ads. Please disable your ad-blocker or whitelist HEARTBEAT to continue enjoying cinematic movies in HD.</p>
-            <button class="btn btn-primary" onclick="location.reload()">I've Disabled It, Refresh</button>
-            <button class="btn btn-secondary" onclick="document.getElementById('adblock-notice').classList.add('hidden')">Maybe Later</button>
-        </div>
+        <!-- Bottom Navigation Bar -->
+        <nav class="bottom-nav">
+            <a href="index.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span class="nav-label">Home</span>
+                <div class="nav-indicator"></div>
+            </a>
+            <a href="index.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+                <span class="nav-label">Movies</span>
+                <div class="nav-indicator"></div>
+            </a>
+            <a href="index.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+                <span class="nav-label">TV Shows</span>
+                <div class="nav-indicator"></div>
+            </a>
+            <a href="#" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                <span class="nav-label">My List</span>
+                <div class="nav-indicator"></div>
+            </a>
+            <a href="login.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <span class="nav-label">Profile</span>
+                <div class="nav-indicator"></div>
+            </a>
+        </nav>
     </div>
 
     <!-- Scripts -->
-    <script src="https://pl29146924.profitablecpmratenetwork.com/60/cb/5f/60cb5f0889c1e330ca1d61468cf24463.js" async></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js"></script>
     <script src="supabase-config.js"></script>
-    <script src="script.js"></script>
-    <script src="ads.js"></script>
+    
     <script>
-        // Fetch content directly from Supabase to avoid race condition with app.content
-        async function loadWatchPage() {
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const contentId = urlParams.get('id');
 
-            // Validate UUID format before querying Supabase
-            const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-            if (!id || id === 'undefined' || id === 'null' || !uuidRegex.test(id)) {
-                document.getElementById('watch-title').textContent = 'Invalid or missing content ID.';
-                document.getElementById('watch-desc').textContent = 'Please go back and select a valid title.';
+            if (!contentId || !supabase) {
+                document.getElementById('loading').innerHTML = '<p>Content not found or database not initialized.</p><a href="index.html" style="color:var(--accent-red); margin-top:10px; display:block;">Go Home</a>';
                 return;
             }
 
-            // Fetch this specific item directly from Supabase
-            const { data, error } = await supabase
-                .from('content')
-                .select('*')
-                .eq('id', id)
-                .single();
-
-            if (error || !data) {
-                console.error('[HEARTBEAT] Watch page error:', error?.message);
-                document.getElementById('watch-title').textContent = 'Content Not Found';
-                document.getElementById('watch-desc').textContent = error?.message || 'This content could not be loaded.';
-                return;
-            }
-
-            // Map DB snake_case → JS camelCase
-            const item = {
-                id: data.id,
-                title: data.title,
-                type: data.type,
-                thumbPortrait: data.thumb_portrait,
-                thumbLandscape: data.thumb_landscape,
-                category: data.category,
-                desc: data.description,
-                publishDate: data.publish_date,
-                featured: data.featured,
-                quality: data.quality || '4K Ultra HD',
-                videoLink: data.video_link,
-                downloadLink: data.download_link,
-                embedCode: data.embed_code,
-                episodes: data.episodes || []
-            };
+            // Fetch Main Content
+            const { data: dbItem, error } = await supabase.from('content').select('*').eq('id', contentId).single();
             
-            // Make item accessible globally for episode playback
-            window.currentItem = item;
-
-            // Populate page
-            document.title = `${item.title} | HEARTBEAT`;
-            document.getElementById('watch-backdrop').style.backgroundImage = `url('${item.thumbLandscape}')`;
-            document.getElementById('watch-poster-img').src = item.thumbPortrait;
-            document.getElementById('watch-title').textContent = item.title;
-            document.getElementById('watch-desc').textContent = item.desc || 'No description available.';
-            document.getElementById('watch-category').textContent = item.category || 'Uncategorized';
-            if (document.getElementById('watch-quality')) {
-                document.getElementById('watch-quality').textContent = item.quality;
+            if (error || !dbItem) {
+                document.getElementById('loading').innerHTML = '<p>Content not found.</p><a href="index.html" style="color:var(--accent-red); margin-top:10px; display:block;">Go Home</a>';
+                return;
             }
 
-            const date = item.publishDate
-                ? new Date(item.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-                : 'Unknown';
-            document.getElementById('watch-date').textContent = `Published: ${date}`;
+            const item = {
+                id: dbItem.id,
+                title: dbItem.title,
+                type: dbItem.type,
+                thumbPortrait: dbItem.thumb_portrait,
+                thumbLandscape: dbItem.thumb_landscape,
+                category: dbItem.category,
+                desc: dbItem.description,
+                publishDate: dbItem.publish_date,
+                featured: dbItem.featured,
+                videoLink: dbItem.video_link,
+                episodes: dbItem.episodes
+            };
 
-            // Update about section title
-            document.querySelector('.watch-about-title').textContent = item.type === 'Series' ? 'About Series' : 'About This Movie';
-
-            // Watch Now / Episodes Button
-            const watchBtn = document.getElementById('watch-now-btn');
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('dynamic-content').style.display = 'flex';
+            document.getElementById('mlt-section').style.display = 'block';
 
             if (item.type === 'Series') {
-                watchBtn.innerHTML = '📜 View Episodes';
-                watchBtn.onclick = () => {
-                    document.getElementById('episodes-section').scrollIntoView({ behavior: 'smooth' });
-                };
-
-                // Render Episodes
-                if (item.episodes && item.episodes.length > 0) {
-                    const epSection = document.getElementById('episodes-section');
-                    const epGrid = document.getElementById('episodes-grid');
-                    epSection.style.display = 'block';
-                    epGrid.innerHTML = item.episodes.map((ep, index) => {
-                        return `
-                        <div class="episode-card" style="display: flex; align-items: center; gap: 1rem;">
-                            <img src="${item.thumbPortrait}" alt="Poster" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.1); cursor: pointer;" onclick="playEpisode(${index})">
-                            <div class="episode-info" style="cursor:pointer; flex: 1;" onclick="playEpisode(${index})">
-                                <h4>${ep.title}</h4>
-                                <p>Episode ${index + 1}</p>
-                            </div>
-                            <div class="ep-actions" style="display: flex; align-items: center; gap: 0.8rem;">
-                                <div class="ep-play-btn" style="cursor:pointer;" onclick="playEpisode(${index})">▶</div>
-                            </div>
-                        </div>
-                        `;
-                    }).join('');
-                }
+                renderSeriesUI(item);
             } else {
-                watchBtn.innerHTML = '▶ Watch Now';
-                watchBtn.onclick = () => {
-                    if (item.embedCode && item.embedCode.trim() !== '') {
-                        window.location.href = `player.html?id=${item.id}`;
-                    } else if (item.videoLink && item.videoLink.trim() !== '') {
-                        window.open(item.videoLink, '_blank');
-                    } else {
-                        alert('Streaming link not available yet.');
-                    }
-                };
+                renderMovieUI(item);
             }
 
-            // Fetch recommendations (same category, different item)
-            const { data: recData } = await supabase
-                .from('content')
-                .select('*')
-                .eq('category', item.category)
-                .neq('id', item.id)
-                .limit(8);
+            // Fetch Recommendations
+            const { data: dbRecs } = await supabase.from('content').select('*').neq('id', contentId).limit(5);
+            const recs = (dbRecs || []).map(r => ({
+                id: r.id,
+                title: r.title,
+                thumbPortrait: r.thumb_portrait
+            }));
+            renderRecommendations(recs);
+        });
 
-            const recContainer = document.getElementById('recommendations-container');
-            if (recData && recData.length > 0) {
-                recContainer.innerHTML = recData.map(rec => `
-                    <article class="card" onclick="window.location.href='watch.html?id=${rec.id}'" style="cursor:pointer">
-                        <img class="card-thumb" src="${rec.thumb_portrait}" alt="${rec.title}" loading="lazy">
-                        <div class="card-overlay"><span class="play-icon">▶</span></div>
-                        <div class="card-info">
-                            <h3 class="card-title">${rec.title}</h3>
-                            <div class="card-meta">
-                                <span>HD</span>
-                                <span>${rec.publish_date ? new Date(rec.publish_date).getFullYear() : ''}</span>
+        function renderSeriesUI(item) {
+            const year = item.publishDate ? new Date(item.publishDate).getFullYear() : '2026';
+            const genres = (item.category || 'Action').split(',').map(g => g.trim()).join(' <span>•</span> ');
+            
+            let episodes = [];
+            try { episodes = typeof item.episodes === 'string' ? JSON.parse(item.episodes) : item.episodes; } catch(e) {}
+            if(!episodes || episodes.length === 0) episodes = [];
+
+            let epsHtml = '';
+            episodes.forEach((ep, idx) => {
+                const isActive = idx === 0;
+                epsHtml += `
+                    <div class="ep-card ${isActive ? 'active' : ''}" onclick="window.location.href='player.html?id=${item.id}&ep=${idx}'">
+                        <div class="ep-thumb">
+                            <img src="${item.thumbLandscape || item.thumbPortrait}" alt="Episode ${idx+1}">
+                            ${isActive ? '<div class="ep-now-playing">Now Playing</div>' : ''}
+                            <div class="ep-play-overlay">
+                                ${isActive 
+                                    ? '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>'
+                                    : '<svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>'}
                             </div>
                         </div>
-                    </article>
-                `).join('');
-            } else {
-                recContainer.innerHTML = '<p class="loading-status">No other content in this category yet.</p>';
-            }
+                        <div class="ep-details">
+                            <div class="ep-number">${idx+1}. EP${idx+1}</div>
+                            <div class="ep-title">${ep.title || 'Episode '+(idx+1)}</div>
+                            <div class="ep-desc">${ep.desc || 'No description available.'}</div>
+                        </div>
+                        <div class="ep-actions">
+                            <div class="ep-play-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
+                            <div class="ep-duration">${ep.duration || '45m'}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const html = `
+                <div class="series-hero">
+                    <div class="series-poster">
+                        <img src="${item.thumbPortrait}" class="series-poster-img">
+                        <div class="series-poster-play" onclick="window.location.href='player.html?id=${item.id}${episodes.length > 0 ? '&ep=0' : ''}'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                        </div>
+                    </div>
+                    <div class="series-details">
+                        <h1 class="series-title">${item.title}</h1>
+                        <div class="series-badges">
+                            <span class="s-badge-red">${year}</span>
+                            <span class="s-badge-outline">A</span>
+                            <span class="s-badge-outline">18+</span>
+                        </div>
+                        <div class="series-genres">${genres}</div>
+                        <div class="series-ratings">
+                            <span style="color:#FFC107">⭐</span> 9.1/10 
+                            <span style="color:#555">|</span> 
+                            <span style="color:#E50914; font-weight:800; letter-spacing:-1px;">IMDb</span> 8.9
+                        </div>
+                        <p class="series-synopsis">${item.desc ? item.desc.substring(0, 110) + '...' : ''} <a href="#" class="series-readmore">... Read more</a></p>
+                    </div>
+                </div>
+
+                ${episodes.length > 0 ? `
+                <div class="episodes-section">
+                    <div class="episodes-header">
+                        <div class="episodes-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                            Episodes
+                        </div>
+                        <div class="episodes-season">Season 1 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></div>
+                    </div>
+                    <div>${epsHtml}</div>
+                </div>` : ''}
+            `;
+            document.getElementById('dynamic-content').innerHTML = html;
         }
 
-        window.playEpisode = function(index) {
-            const ep = window.currentItem.episodes[index];
-            if (!ep) return;
+        function renderMovieUI(item) {
+            const year = item.publishDate ? new Date(item.publishDate).getFullYear() : '2026';
             
-            if (ep.embedCode && ep.embedCode.trim() !== '') {
-                window.location.href = `player.html?id=${window.currentItem.id}&ep=${index}`;
-            } else if (ep.link && ep.link.trim() !== '') {
-                window.open(ep.link, '_blank');
-            } else {
-                alert('No streaming link or embed code available for this episode.');
-            }
-        };
+            const html = `
+                <div class="movie-hero">
+                    <img src="${item.thumbPortrait}" class="movie-poster">
+                    <h1 class="movie-title">${item.title}</h1>
+                    <div class="movie-tags">
+                        <span class="badge-grey">1080p Full HD</span>
+                        <span style="color: #2196F3; font-size: 13px;">Published: June 5, ${year}</span>
+                        <span class="badge-grey">${item.category || 'Action'}</span>
+                    </div>
+                    
+                    <div class="movie-meta">
+                        <div style="display:flex; flex-direction:column; align-items:center;">
+                            <div style="font-size:14px; font-weight:bold;"><span style="color:#FFC107">⭐</span> 8.6/10</div>
+                            <div style="font-size:11px; color:#888;">• IMDb</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; align-items:center;">
+                            <div style="font-size:14px; font-weight:bold;">📅 ${year}</div>
+                            <div style="font-size:11px; color:#888;">• Release Year</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; align-items:center;">
+                            <div style="font-size:14px; font-weight:bold;">💬 U/A 16+</div>
+                            <div style="font-size:11px; color:#888;">• Age Rating</div>
+                        </div>
+                    </div>
 
-        document.addEventListener('DOMContentLoaded', loadWatchPage);
+                    <div class="movie-actions">
+                        <button class="btn-primary" onclick="window.location.href='player.html?id=${item.id}'">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Now
+                        </button>
+                        <div style="display:flex; gap:12px;">
+                            <button class="btn-secondary">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add to List
+                            </button>
+                            <button class="btn-secondary">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Download
+                            </button>
+                        </div>
+                    </div>
+
+                    <p style="margin-top:24px; font-size:13px; color:#aaa; line-height:1.6; max-width:340px;">
+                        ${item.desc || 'No description available.'} <a href="#" style="color:var(--accent-red); text-decoration:none;">... Read more</a>
+                    </p>
+                </div>
+            `;
+            document.getElementById('dynamic-content').innerHTML = html;
+        }
+
+        function renderRecommendations(items) {
+            if(!items || items.length === 0) return;
+            const container = document.getElementById('recommendations-scroll');
+            let html = '';
+            items.forEach(item => {
+                html += `
+                    <div class="mlt-card" onclick="window.location.href='watch.html?id=${item.id}'">
+                        <img src="${item.thumbPortrait}" alt="${item.title}">
+                        <div class="mlt-rating"><span>⭐</span> 8.${(item.id.charCodeAt(0) % 5) + 5}</div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // Horizontal scroll script
+        const slider = document.getElementById('recommendations-scroll');
+        let isDown = false, startX, scrollLeft;
+        slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; });
+        slider.addEventListener('mouseleave', () => isDown = false);
+        slider.addEventListener('mouseup', () => isDown = false);
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            slider.scrollLeft = scrollLeft - ((e.pageX - slider.offsetLeft) - startX) * 2;
+        });
     </script>
 </body>
 </html>

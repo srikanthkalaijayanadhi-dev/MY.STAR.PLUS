@@ -1,0 +1,531 @@
+:root {
+    --bg-dark: #0A0C10;
+    --bg-card: #151821;
+    --bg-search: rgba(255, 255, 255, 0.08);
+    --text-main: #ffffff;
+    --text-muted: #9ba1a6;
+    --accent-red: #ff0033;
+    --accent-red-hover: #d60029;
+    --badge-teal: #00d2d3;
+    --nav-bg: rgba(10, 12, 16, 0.95);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    padding-bottom: 80px; /* space for bottom nav */
+}
+
+/* Hide scrollbar for horizontal scroll areas */
+.hide-scroll::-webkit-scrollbar {
+    display: none;
+}
+.hide-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* 1. Header Section */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dynamic-island {
+    width: 120px;
+    height: 30px;
+    background-color: #000;
+    border-radius: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 8px;
+}
+
+.status-icons {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    margin-top: 5px;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.star-icon {
+    color: #ff9d00;
+    font-size: 24px;
+    filter: drop-shadow(0 0 8px rgba(255, 157, 0, 0.6));
+}
+
+.logo-underline {
+    width: 100px;
+    height: 3px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, #ff0000, #ff00ff, #00d2d3);
+}
+
+.header-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+}
+
+.header-icon {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -6px;
+    background-color: var(--accent-red);
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 2. Search Bar */
+.search-container {
+    padding: 10px 20px 20px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: var(--bg-search);
+    border-radius: 30px;
+    padding: 12px 16px;
+    gap: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* 3. Hero Section */
+.hero-container {
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+
+.hero-card {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    border-radius: 24px;
+    overflow: hidden;
+    background-color: #222;
+}
+
+.hero-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right top;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(10, 12, 16, 0.95) 0%, rgba(10, 12, 16, 0.6) 40%, transparent 100%),
+                linear-gradient(to top, rgba(10, 12, 16, 0.9) 0%, transparent 50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.hero-top-badges {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.badge-featured {
+    background-color: var(--accent-red);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 6px;
+    letter-spacing: 0.5px;
+}
+
+.badge-pagination {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    backdrop-filter: blur(4px);
+}
+
+.hero-content {
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+.hero-desc {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    max-width: 80%;
+    margin-bottom: 16px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.btn-play {
+    background-color: var(--accent-red);
+    color: white;
+}
+
+.btn-play:active {
+    background-color: var(--accent-red-hover);
+    transform: scale(0.98);
+}
+
+.btn-info {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-info:active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(0.98);
+}
+
+.hero-dots {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: var(--accent-red);
+    width: 16px;
+    border-radius: 4px;
+}
+
+/* Common Section Styles */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 16px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.section-title::before {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 18px;
+    background-color: var(--accent-red);
+    border-radius: 4px;
+}
+
+.view-all {
+    color: var(--text-muted);
+    font-size: 12px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* 4. Categories Section */
+.categories-section {
+    margin-bottom: 30px;
+}
+
+.categories-scroll {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 20px;
+}
+
+.category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    cursor: pointer;
+}
+
+.category-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.category-icon svg {
+    width: 32px;
+    height: 32px;
+    stroke: white;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+.category-name {
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.cat-comedy { background: linear-gradient(135deg, #ff416c, #ff4b2b); }
+.cat-action { background: linear-gradient(135deg, #f7971e, #ffd200); }
+.cat-drama { background: linear-gradient(135deg, #8a2387, #e94057, #f27121); }
+.cat-romance { background: linear-gradient(135deg, #00c6ff, #0072ff); }
+.cat-family { background: linear-gradient(135deg, #11998e, #38ef7d); }
+.cat-more { background: linear-gradient(135deg, #141e30, #243b55); }
+
+/* 5. Trending Now Section */
+.trending-scroll {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 20px 20px;
+}
+
+.movie-card {
+    flex-shrink: 0;
+    width: 140px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.poster-container {
+    position: relative;
+    width: 100%;
+    height: 210px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.poster-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.movie-card:hover .poster-img {
+    transform: scale(1.05);
+}
+
+.badge-hd {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: var(--badge-teal);
+    color: black;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.movie-title {
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 2px;
+}
+
+.movie-meta {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.movie-rating {
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.star-rating {
+    color: #ffc107;
+}
+
+/* 6. Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 10px 24px;
+    z-index: 100;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.nav-icon {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+
+.nav-label {
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.nav-indicator {
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+    background-color: transparent;
+    margin-top: 2px;
+    transition: background-color 0.2s ease;
+}
+
+.nav-item.active {
+    color: var(--text-main);
+}
+
+.nav-item.active .nav-icon {
+    stroke: var(--accent-red);
+    fill: var(--accent-red);
+    fill-opacity: 0.2;
+}
+
+.nav-item.active .nav-indicator {
+    background-color: var(--accent-red);
+}
