@@ -28,6 +28,25 @@
             border-radius: 10px !important;
             padding: 0.6rem 1rem !important;
         }
+
+        @media (max-width: 650px) {
+            #admin-navbar {
+                height: auto !important;
+                padding: 10px 0;
+            }
+            #admin-navbar .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+            #admin-navbar .nav-right {
+                width: 100%;
+                justify-content: center;
+            }
+            .admin-container {
+                margin-top: 120px !important; /* prevent overlap if navbar gets taller */
+            }
+        }
     </style>
 
     <!-- Auth Check -->
