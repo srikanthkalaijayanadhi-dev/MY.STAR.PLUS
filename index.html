@@ -36,8 +36,8 @@
             <img src="https://i.ibb.co/8JWh91Z/Untitled-design.png" alt="My Star Plus Logo" style="height: 36px; object-fit: contain;">
             <div class="desktop-nav">
                 <a href="#" id="desk-home" class="desktop-nav-item active">Home</a>
-                <a href="movie.html" id="desk-movies" class="desktop-nav-item">Movies</a>
-                <a href="tvshow.html" id="desk-series" class="desktop-nav-item">TV Shows</a>
+                <a href="https://my-star-plus.vercel.app/movie" id="desk-movies" class="desktop-nav-item">Movies</a>
+                <a href="https://my-star-plus.vercel.app/tvshow" id="desk-series" class="desktop-nav-item">TV Shows</a>
                 <a href="#" id="desk-mylist" class="desktop-nav-item">My List</a>
             </div>
         </div>
@@ -80,7 +80,7 @@
             <span class="nav-label nav-text">Home</span>
             <div class="nav-indicator bg-transparent"></div>
         </a>
-        <a href="movie.html" class="nav-item mobile-nav-item" id="mob-movies">
+        <a href="https://my-star-plus.vercel.app/movie" class="nav-item mobile-nav-item" id="mob-movies">
             <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
             <span class="nav-label nav-text">Movies</span>
             <div class="nav-indicator bg-transparent"></div>
@@ -127,7 +127,7 @@
             'mob-home': 'all', 'mob-movies': null, 'mob-series': null, 'mob-trending': 'Trending', 'mob-search': null, 'mob-profile': null
         };
         const deskFilterMap = {
-            'desk-home': 'all', 'desk-movies': 'Movie', 'desk-series': 'Series', 'desk-mylist': 'all'
+            'desk-home': 'all', 'desk-movies': null, 'desk-series': null, 'desk-mylist': 'all'
         };
         const mobMap = { all: 'mob-home', Movie: 'mob-movies', Series: 'mob-series', Trending: 'mob-trending' };
         const deskMap = { all: 'desk-home', Movie: 'desk-movies', Series: 'desk-series', Trending: 'desk-home' };
