@@ -215,6 +215,93 @@
                 </div>
             </section>
         </div>
+
+        <div class="admin-header" style="margin-top: 3rem;">
+            <h1 class="admin-title">Products Dashboard <span id="prod-edit-mode-tag"
+                    class="edit-mode-indicator hidden-initial">EDIT MODE</span></h1>
+            <p class="admin-subtitle">Manage affiliate shopping products.</p>
+        </div>
+
+        <div class="admin-grid">
+            <!-- Create Product Section -->
+            <section class="admin-card">
+                <h2 class="admin-section-title">
+                    <span>🛍️</span> Add New Product
+                </h2>
+                <form id="admin-product-form">
+                    <div class="form-group">
+                        <label for="prodName">Product Name</label>
+                        <input type="text" id="prodName" placeholder="e.g. Smart Watch" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prodImage">Product Image URL</label>
+                        <input type="url" id="prodImage" placeholder="Image URL..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prodCategory">Category</label>
+                        <input type="text" id="prodCategory" placeholder="e.g. Electronics" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: end;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="prodOriginalPrice">Original Price</label>
+                            <input type="text" id="prodOriginalPrice" placeholder="e.g. ₹2,999" required>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="prodPrice">Sale Price</label>
+                            <input type="text" id="prodPrice" placeholder="e.g. ₹1,999" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="prodDiscount">Discount Percentage (Auto-calculated)</label>
+                        <input type="number" id="prodDiscount" placeholder="%" readonly style="background: rgba(0,0,0,0.3); color: #aaa;">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prodAffiliateUrl">Affiliate URL (Buy Link)</label>
+                        <input type="url" id="prodAffiliateUrl" placeholder="https://amazon.com/..." required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prodDesc">Short Description</label>
+                        <textarea id="prodDesc" rows="3" placeholder="Briefly describe the product..." required></textarea>
+                    </div>
+
+                    <div class="form-group featured-checkbox-group">
+                        <input type="checkbox" id="prodFeatured" class="checkbox-input">
+                        <label for="prodFeatured" class="checkbox-label">Featured Product 🌟</label>
+                    </div>
+                    
+                    <div class="form-group featured-checkbox-group">
+                        <input type="checkbox" id="prodStatus" class="checkbox-input" checked>
+                        <label for="prodStatus" class="checkbox-label">Visible (Active) 👁️</label>
+                    </div>
+
+                    <button type="submit" id="prod-submit-btn" class="btn btn-primary publish-submit-btn">
+                        🚀 Publish Product
+                    </button>
+                    <button type="button" id="prod-cancel-edit-btn" class="btn btn-secondary"
+                        style="width: 100%; margin-top: 0.5rem; display: none;">
+                        Cancel Editing
+                    </button>
+                </form>
+            </section>
+
+            <!-- Manage Products Section -->
+            <section class="admin-card">
+                <h2 class="admin-section-title">
+                    <span>📦</span> Manage Products
+                </h2>
+                <div class="content-list" id="admin-product-list">
+                    <div class="loading-status">
+                        <p>Loading products...</p>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <script>

@@ -798,9 +798,190 @@ class Auth {
     }
 }
 
+class ShopVault {
+    constructor() {
+        this.products = [];
+        this.editMode = false;
+        this.currentEditId = null;
+        this.init();
+    }
+
+    async init() {
+        const form = document.getElementById('admin-product-form');
+        if (!form) return; // Only init on admin page
+
+        await this.loadProducts();
+        this.setupEventListeners();
+    }
+
+    async loadProducts() {
+        if (!supabase) return;
+        const listContainer = document.getElementById('admin-product-list');
+        if (listContainer) listContainer.innerHTML = '<p class="loading-status">Loading products...</p>';
+
+        const { data, error } = await supabase
+            .from('products')
+            .select('*')
+            .order('created_at', { ascending: false });
+
+        if (error) {
+            console.error('Error loading products:', error.message);
+            if (listContainer) listContainer.innerHTML = `<p class="loading-status" style="color:#e57373;">Error: ${error.message}</p>`;
+            return;
+        }
+
+        this.products = data || [];
+        this.renderAdminList();
+    }
+
+    renderAdminList() {
+        const listContainer = document.getElementById('admin-product-list');
+        if (!listContainer) return;
+
+        if (this.products.length === 0) {
+            listContainer.innerHTML = '<p class="loading-status">No products added yet.</p>';
+            return;
+        }
+
+        listContainer.innerHTML = this.products.map(item => `
+            <div class="list-item">
+                <img src="${item.image_url || 'https://placehold.co/100x100/1a1a2e/ffffff?text=No+Image'}" alt="${item.name}">
+                <div class="list-item-info">
+                    <h4>${item.name} ${item.featured ? '🌟' : ''}</h4>
+                    <p>${item.original_price ? `<del style="opacity:0.5">${item.original_price}</del> ` : ''}${item.price} ${item.discount_percentage ? `<span style="color:#e50914; font-size:0.8rem; font-weight:bold;">(-${item.discount_percentage}%)</span>` : ''} • ${item.category} • ${item.status ? 'Active' : 'Hidden'}</p>
+                </div>
+                <div class="list-actions">
+                    <button class="edit-btn" onclick="shop.enterEditMode(${item.id})">Edit</button>
+                    <button class="delete-btn" onclick="shop.deleteProduct(${item.id})">Delete</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    setupEventListeners() {
+        const form = document.getElementById('admin-product-form');
+        if (form) {
+            const origInput = document.getElementById('prodOriginalPrice');
+            const saleInput = document.getElementById('prodPrice');
+            const discInput = document.getElementById('prodDiscount');
+            
+            const calcDiscount = () => {
+                const origStr = origInput.value.replace(/[^0-9.]/g, '');
+                const saleStr = saleInput.value.replace(/[^0-9.]/g, '');
+                const orig = parseFloat(origStr);
+                const sale = parseFloat(saleStr);
+                if (orig > 0 && sale > 0 && orig > sale) {
+                    const pct = Math.round(((orig - sale) / orig) * 100);
+                    discInput.value = pct;
+                } else {
+                    discInput.value = '';
+                }
+            };
+
+            if (origInput && saleInput) {
+                origInput.addEventListener('input', calcDiscount);
+                saleInput.addEventListener('input', calcDiscount);
+            }
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const productData = {
+                    name: document.getElementById('prodName').value,
+                    image_url: document.getElementById('prodImage').value,
+                    category: document.getElementById('prodCategory').value,
+                    price: document.getElementById('prodPrice').value,
+                    original_price: document.getElementById('prodOriginalPrice').value,
+                    discount_percentage: document.getElementById('prodDiscount').value ? parseInt(document.getElementById('prodDiscount').value) : null,
+                    affiliate_url: document.getElementById('prodAffiliateUrl').value,
+                    description: document.getElementById('prodDesc').value,
+                    featured: document.getElementById('prodFeatured').checked,
+                    status: document.getElementById('prodStatus').checked
+                };
+
+                await this.saveProduct(productData);
+            });
+
+            document.getElementById('prod-cancel-edit-btn').addEventListener('click', () => this.exitEditMode());
+        }
+    }
+
+    async saveProduct(data) {
+        if (this.editMode && this.currentEditId) {
+            const { error } = await supabase.from('products').update(data).eq('id', this.currentEditId);
+            if (error) {
+                alert('Error updating product: ' + error.message);
+                return;
+            }
+            alert('Product Updated!');
+        } else {
+            if (data.featured) {
+                // Keep multiple featured products or just one? Let's keep multiple. No unfeature logic needed.
+            }
+            const { error } = await supabase.from('products').insert([data]);
+            if (error) {
+                alert('Error publishing product: ' + error.message);
+                return;
+            }
+            alert('Product Published!');
+        }
+
+        this.exitEditMode();
+        await this.loadProducts();
+    }
+
+    enterEditMode(id) {
+        const item = this.products.find(i => i.id === id);
+        if (!item) return;
+
+        this.editMode = true;
+        this.currentEditId = id;
+
+        document.getElementById('prodName').value = item.name;
+        document.getElementById('prodImage').value = item.image_url;
+        document.getElementById('prodCategory').value = item.category;
+        document.getElementById('prodPrice').value = item.price;
+        document.getElementById('prodOriginalPrice').value = item.original_price || '';
+        document.getElementById('prodDiscount').value = item.discount_percentage || '';
+        document.getElementById('prodAffiliateUrl').value = item.affiliate_url;
+        document.getElementById('prodDesc').value = item.description;
+        document.getElementById('prodFeatured').checked = item.featured;
+        document.getElementById('prodStatus').checked = item.status;
+
+        document.getElementById('prod-edit-mode-tag').classList.remove('hidden-initial');
+        document.getElementById('prod-submit-btn').innerHTML = '💾 Save Product';
+        document.getElementById('prod-cancel-edit-btn').style.display = 'block';
+        
+        window.scrollTo({ top: document.getElementById('admin-product-form').offsetTop - 100, behavior: 'smooth' });
+    }
+
+    exitEditMode() {
+        this.editMode = false;
+        this.currentEditId = null;
+        
+        const form = document.getElementById('admin-product-form');
+        if (form) form.reset();
+
+        document.getElementById('prod-edit-mode-tag').classList.add('hidden-initial');
+        document.getElementById('prod-submit-btn').innerHTML = '🚀 Publish Product';
+        document.getElementById('prod-cancel-edit-btn').style.display = 'none';
+    }
+
+    async deleteProduct(id) {
+        if (confirm('Delete this product permanently?')) {
+            const { error } = await supabase.from('products').delete().eq('id', id);
+            if (error) {
+                alert('Error deleting product: ' + error.message);
+                return;
+            }
+            await this.loadProducts();
+        }
+    }
+}
+
 window.auth = new Auth();
 
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new StreamVault();
+    window.shop = new ShopVault();
 });
-
