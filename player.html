@@ -33,17 +33,6 @@
             padding-bottom: 20px;
         }
 
-        /* --- Mockup Frame (Optional for desktop) --- */
-        @media (min-width: 600px) {
-            body { display: flex; justify-content: center; background-color: #111; padding: 20px 0; }
-            .mobile-frame {
-                width: 430px; height: 932px; background-color: var(--bg-color);
-                border: 12px solid #222; border-radius: 50px; overflow-y: auto; overflow-x: hidden;
-                position: relative; box-shadow: 0 0 50px rgba(0,0,0,0.5);
-            }
-            .mobile-frame::-webkit-scrollbar { display: none; }
-        }
-
         .mobile-frame { min-height: 100vh; display: flex; flex-direction: column; }
 
         /* --- Header & Top Bar --- */
@@ -52,6 +41,9 @@
         
         header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; margin-bottom: 10px; }
         .header-icon { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        
+        .desktop-nav { display: none; }
+        
         .logo-container { display: flex; flex-direction: column; align-items: center; }
         .logo { display: flex; align-items: center; gap: 6px; font-size: 18px; font-weight: 700; font-style: italic; }
         .star-icon { color: #FF9D00; font-size: 22px; filter: drop-shadow(0 0 8px rgba(255, 157, 0, 0.8)); }
@@ -123,19 +115,35 @@
         /* Progress Bar */
         input[type=range] {
             -webkit-appearance: none;
-            flex: 1;
+            width: 100%;
             height: 4px;
             background: #333;
             border-radius: 2px;
             outline: none;
+            cursor: pointer;
+            transition: height 0.2s ease;
+        }
+        input[type=range]:hover {
+            height: 8px;
         }
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
-            width: 14px;
-            height: 14px;
+            width: 16px;
+            height: 16px;
             background: var(--accent-red);
             border-radius: 50%;
             cursor: pointer;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+        input[type=range]:hover::-webkit-slider-thumb {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .dimmable-content {
+            transition: opacity 0.5s ease;
         }
 
         /* --- Episode Metadata --- */
@@ -193,18 +201,117 @@
         }
         .btn-red { background: var(--accent-red); color: white; }
         .btn-grey { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); }
+    /* --- DESKTOP (PC) REDESIGN --- */
+        @media (min-width: 1024px) {
+            body { 
+                display: block; 
+                background-color: var(--bg-color); 
+                padding: 0;
+            }
+            .mobile-frame {
+                width: 100%; height: auto; background-color: transparent;
+                border: none; border-radius: 0; overflow-y: visible;
+                box-shadow: none;
+            }
+            .bottom-nav {
+                display: none !important;
+            }
+            header {
+                padding: 20px 80px;
+                margin-bottom: 20px;
+            }
+            .logo-container {
+                flex-direction: row;
+                gap: 40px;
+                align-items: center;
+            }
+            .desktop-nav {
+                display: flex;
+                gap: 32px;
+                margin-left: 40px;
+            }
+            .desktop-nav a {
+                color: rgba(255,255,255,0.7);
+                text-decoration: none;
+                font-size: 15px;
+                font-weight: 500;
+                transition: color 0.2s;
+            }
+            .desktop-nav a:hover, .desktop-nav a.active {
+                color: white;
+            }
+            .header-icon#back-btn {
+                display: none;
+            }
+            .video-container {
+                max-width: 1200px;
+                margin: 0 auto;
+                border-radius: 16px;
+                overflow: hidden;
+                aspect-ratio: 16 / 9;
+                height: auto;
+            }
+            .metadata-section {
+                max-width: 1200px;
+                margin: 40px auto;
+                padding: 0 40px;
+            }
+            .title-row {
+                margin-bottom: 24px;
+            }
+            .video-title {
+                font-size: 32px;
+            }
+            .video-desc {
+                font-size: 16px;
+                line-height: 1.6;
+            }
+            .synopsis {
+                font-size: 16px;
+                max-width: 800px;
+                line-height: 1.6;
+            }
+            .badges-row {
+                margin-bottom: 24px;
+            }
+            .bottom-actions {
+                position: static;
+                flex-direction: row;
+                justify-content: flex-start;
+                padding: 20px 0;
+                background: transparent;
+                border: none;
+                gap: 20px;
+                width: 100%;
+            }
+            .bottom-actions .btn {
+                flex: 0 1 auto;
+                padding: 12px 30px;
+            }
+            .next-episode-card {
+                margin: 0;
+            }
+        }
+
+        
     </style>
 </head>
 <body>
     <div class="mobile-frame">
 
         <!-- App Header -->
-        <header>
+        <header class="dimmable-content" id="app-header">
             <button class="header-icon" id="back-btn" onclick="history.back()">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
             </button>
             <div class="logo-container">
                 <img src="https://i.ibb.co/8JWh91Z/Untitled-design.png" alt="My Star Plus Logo" style="height: 36px; object-fit: contain;">
+                <div class="desktop-nav">
+                    <a href="index.html">Home</a>
+                    <a href="movie.html">Movies</a>
+                    <a href="tvshow.html">TV Shows</a>
+                    <a href="index.html">My List</a>
+                </div>
             </div>
             <div class="header-right">
                 <button class="header-icon">
@@ -253,7 +360,7 @@
 
         <div id="dynamic-meta" style="display: none; flex-direction: column;">
             <!-- 3. Episode Metadata Section -->
-            <div class="metadata-section">
+            <div class="metadata-section dimmable-content" id="metadata-section">
                 <div class="subheading" id="meta-subheading">SERIES - S1 : E1</div>
                 <div class="title-row">
                     <h1 class="ep-title" id="meta-title">Episode 1</h1>
@@ -271,7 +378,7 @@
             </div>
 
             <!-- 4. Next Episode Card -->
-            <div id="next-ep-container" style="display: none;">
+            <div class="dimmable-content" id="next-ep-container" style="display: none;">
                 <div class="next-ep-header">Next Episode</div>
                 <div class="next-ep-card" id="next-ep-btn-card">
                     <div class="next-ep-thumb">
@@ -293,7 +400,7 @@
             </div>
 
             <!-- 5. Bottom Action Buttons -->
-            <div class="bottom-actions">
+            <div class="bottom-actions dimmable-content" id="bottom-actions">
                 <a href="#" class="btn-action btn-red" id="dl-btn" style="display: none;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     DOWNLOAD VIDEO
@@ -507,20 +614,40 @@
                 }
             });
 
-            // Auto-hide controls when playing
+            // Auto-hide controls and dim background content when playing on desktop
             let timeout;
+            const appHeader = document.getElementById('app-header');
+            const metadataSection = document.getElementById('metadata-section');
+            const nextEpContainer = document.getElementById('next-ep-container');
+            const bottomActions = document.getElementById('bottom-actions');
+            
             const resetTimer = () => {
                 controls.style.opacity = '1';
+                if (window.innerWidth >= 1024) {
+                    if(appHeader) appHeader.style.opacity = '1';
+                    if(metadataSection) metadataSection.style.opacity = '1';
+                    if(nextEpContainer) nextEpContainer.style.opacity = '1';
+                    if(bottomActions) bottomActions.style.opacity = '1';
+                }
                 clearTimeout(timeout);
                 if (!video.paused) {
-                    timeout = setTimeout(() => { controls.style.opacity = '0'; }, 3000);
+                    timeout = setTimeout(() => { 
+                        controls.style.opacity = '0'; 
+                        if (window.innerWidth >= 1024) {
+                            if(appHeader) appHeader.style.opacity = '0.05';
+                            if(metadataSection) metadataSection.style.opacity = '0.05';
+                            if(nextEpContainer) nextEpContainer.style.opacity = '0.05';
+                            if(bottomActions) bottomActions.style.opacity = '0.05';
+                        }
+                    }, 3500);
                 }
             };
-            
-            controls.style.transition = 'opacity 0.3s ease';
-            container = document.getElementById('player-container');
-            container.addEventListener('mousemove', resetTimer);
-            container.addEventListener('touchstart', resetTimer);
+
+            video.addEventListener('mousemove', resetTimer);
+            controls.addEventListener('mousemove', resetTimer);
+            document.addEventListener('mousemove', resetTimer);
+            video.addEventListener('play', resetTimer);
+            video.addEventListener('pause', resetTimer);
             video.addEventListener('play', resetTimer);
             video.addEventListener('pause', () => { controls.style.opacity = '1'; clearTimeout(timeout); });
         }

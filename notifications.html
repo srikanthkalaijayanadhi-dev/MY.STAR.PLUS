@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notifications — My Star Plus</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="vanilla-ui.css">
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <button class="header-icon" onclick="window.history.back()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        
+        <div class="logo-container">
+            <img src="https://i.ibb.co/8JWh91Z/Untitled-design.png" alt="My Star Plus Logo" style="height: 36px; object-fit: contain;">
+            <div class="desktop-nav">
+                <a href="index.html">Home</a>
+                <a href="movie.html">Movies</a>
+                <a href="tvshow.html">TV Shows</a>
+                <a href="index.html">My List</a>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <button class="header-icon" onclick="window.location.href='index.html'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </button>
+            <button class="header-icon" onclick="window.location.href='notifications.html'">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <div class="notification-badge" style="display:none;" id="notif-badge-count">0</div>
+            </button>
+        </div>
+    </header>
+
+    <!-- Notifications Content -->
+    <div class="notif-container">
+        <div class="notif-header">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--accent-red)" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Notifications
+        </div>
+        
+        <div class="notif-list" id="notif-list">
+            <div style="text-align:center; padding: 40px; color: #888;">Loading notifications...</div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item mobile-nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="nav-label nav-text">Home</span>
+            <div class="nav-indicator bg-transparent"></div>
+        </a>
+        <a href="movie.html" class="nav-item mobile-nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
+            <span class="nav-label nav-text">Movies</span>
+            <div class="nav-indicator bg-transparent"></div>
+        </a>
+        <a href="tvshow.html" class="nav-item mobile-nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+            <span class="nav-label nav-text">TV Shows</span>
+            <div class="nav-indicator bg-transparent"></div>
+        </a>
+        <a href="#" class="nav-item mobile-nav-item">
+            <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            <span class="nav-label nav-text">My List</span>
+            <div class="nav-indicator bg-transparent"></div>
+        </a>
+        <a href="search.html" class="nav-item mobile-nav-item" id="mob-search">
+            <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span class="nav-label nav-text">Search</span>
+            <div class="nav-indicator bg-transparent"></div>
+        </a>
+    </nav>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js"></script>
+    <script src="supabase-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNotifications();
+        });
+
+        async function loadNotifications() {
+            const listEl = document.getElementById('notif-list');
+            
+            if (!window.supabaseClient) {
+                listEl.innerHTML = '<div style="text-align:center; padding: 40px; color: #ff0033;">Database connection failed.</div>';
+                return;
+            }
+
+            // Fetch the 15 newest items from the database
+            const { data, error } = await window.supabaseClient
+                .from('content')
+                .select('*')
+                .order('created_at', { ascending: false })
+                .limit(15);
+                
+            if (error) {
+                console.error('Error fetching notifications:', error);
+                listEl.innerHTML = '<div style="text-align:center; padding: 40px; color: #ff0033;">Failed to load notifications.</div>';
+                return;
+            }
+            
+            if (!data || data.length === 0) {
+                listEl.innerHTML = '<div style="text-align:center; padding: 40px; color: #888;">No notifications yet.</div>';
+                return;
+            }
+            
+            listEl.innerHTML = '';
+            const now = new Date();
+            
+            // Show badge on bell if there are new items
+            const badge = document.getElementById('notif-badge-count');
+            if (data.length > 0) {
+                badge.style.display = 'flex';
+                badge.textContent = Math.min(data.length, 3); // cap at 3 for demo
+            }
+            
+            data.forEach((item, index) => {
+                const createdDate = item.created_at ? new Date(item.created_at) : now;
+                const diffMs = now - createdDate;
+                const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+                
+                let timeStr = "Just now";
+                if (diffDays > 0) {
+                    timeStr = diffDays === 1 ? "1 day ago" : `${diffDays} days ago`;
+                } else if (diffHours > 0) {
+                    timeStr = diffHours === 1 ? "1 hour ago" : `${diffHours} hours ago`;
+                }
+                
+                // For demo purposes, make the first 3 unread
+                const isNew = index < 3;
+                
+                const cardHtml = `
+                    <div class="notif-card" onclick="window.location.href='watch.html?id=${item.id}'">
+                        <img src="${item.thumb_portrait}" class="notif-thumb" alt="${item.title}" onerror="this.src='https://placehold.co/100x150/1a1a2e/ffffff?text=Poster'">
+                        <div class="notif-content">
+                            <div class="notif-badge">New Arrival</div>
+                            <div class="notif-title">${item.title}</div>
+                            <div class="notif-desc">${item.description || 'Check out this new ' + (item.type || 'content') + ' now streaming in HD!'}</div>
+                            <div class="notif-time">${timeStr}</div>
+                        </div>
+                        ${isNew ? '<div class="notif-unread-dot"></div>' : ''}
+                    </div>
+                `;
+                listEl.innerHTML += cardHtml;
+            });
+        }
+    </script>
+</body>
+</html>

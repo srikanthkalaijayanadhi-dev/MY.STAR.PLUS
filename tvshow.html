@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>TV Shows - My Star Plus</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --accent-red: #E50914;
+            --text-main: #ffffff;
+            --text-muted: #9ba1a6;
+            --nav-bg: rgba(5, 5, 5, 0.95);
+            --card-bg: #111;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* Hide Scrollbars */
+        ::-webkit-scrollbar { display: none; }
+        .hide-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* 1. App Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            position: sticky;
+            top: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+
+        .header-left { display: flex; align-items: center; gap: 16px; }
+        .header-logo { display: flex; align-items: center; gap: 8px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 18px; }
+        .header-right { display: flex; align-items: center; gap: 16px; }
+        
+        .icon-btn { background: none; border: none; color: white; display: flex; align-items: center; justify-content: center; padding: 4px; }
+        .bell-container { position: relative; }
+        .badge { position: absolute; top: 0; right: 2px; background: var(--accent-red); color: white; font-size: 10px; font-weight: bold; width: 14px; height: 14px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .profile-pic { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+
+        /* 2. Page Title Section */
+        .page-title-section {
+            padding: 20px 20px 10px 20px;
+        }
+        .page-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 32px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        .title-accent {
+            width: 4px;
+            height: 28px;
+            background-color: var(--accent-red);
+            border-radius: 2px;
+        }
+        .page-subtitle {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* 3. Search & Filters */
+        .search-filter-row {
+            display: flex;
+            gap: 12px;
+            padding: 10px 20px;
+        }
+        .search-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background-color: #1a1c23;
+            border-radius: 12px;
+            padding: 12px 16px;
+            gap: 10px;
+            cursor: pointer;
+        }
+        .search-input {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 14px;
+            width: 100%;
+            outline: none;
+            cursor: pointer;
+        }
+        .search-input::placeholder { color: #666; }
+        
+        .filter-btn {
+            background-color: #1a1c23;
+            border: none;
+            color: white;
+            border-radius: 12px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* 4. Genre Pills */
+        .genre-scroll {
+            display: flex;
+            gap: 12px;
+            padding: 10px 20px 20px 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+        }
+        .genre-pill {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #1a1c23;
+            padding: 10px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
+            font-size: 13px;
+            font-weight: 500;
+            border: 1px solid transparent;
+            scroll-snap-align: start;
+            cursor: pointer;
+        }
+        .genre-pill.active {
+            border-color: var(--accent-red);
+        }
+        .genre-pill svg { width: 14px; height: 14px; }
+
+        /* 5. Content Rows */
+        .content-section {
+            margin-bottom: 30px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 15px 20px;
+        }
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .view-all {
+            color: var(--accent-red);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .cards-scroll {
+            display: flex;
+            gap: 16px;
+            padding: 0 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .movie-card {
+            min-width: 140px;
+            width: 140px;
+            scroll-snap-align: start;
+            cursor: pointer;
+        }
+        .poster-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 2/3;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 10px;
+            background-color: var(--card-bg);
+        }
+        .poster-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hd-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-size: 9px;
+            font-weight: bold;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.2);
+        }
+        .play-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .card-meta {
+            color: var(--text-muted);
+            font-size: 11px;
+            margin-bottom: 4px;
+        }
+        .card-rating {
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+        }
+        
+        /* 6. Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(5,5,5,0.98);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0 20px 0;
+            z-index: 100;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            color: var(--text-muted);
+        }
+        .nav-item.active {
+            color: var(--accent-red);
+        }
+        .nav-item svg { width: 24px; height: 24px; stroke: currentColor; fill: none; }
+        .nav-item.active svg { stroke: var(--accent-red); }
+        .nav-text { font-size: 10px; font-weight: 500; }
+        
+        /* Desktop nav */
+        .desktop-nav {
+            display: none;
+        }
+        
+        @media (min-width: 1024px) {
+            .bottom-nav { display: none !important; }
+            body { padding-bottom: 0; }
+
+            /* Show desktop nav */
+            .desktop-nav {
+                display: flex;
+                gap: 32px;
+                margin-left: 48px;
+            }
+            .desktop-nav a {
+                color: var(--text-muted);
+                text-decoration: none;
+                font-size: 15px;
+                font-weight: 500;
+                transition: color 0.2s;
+                padding: 4px 0;
+                border-bottom: 2px solid transparent;
+            }
+            .desktop-nav a:hover {
+                color: var(--text-main);
+            }
+            .desktop-nav a.active {
+                color: var(--text-main);
+                border-bottom-color: var(--accent-red);
+            }
+
+            /* Wider header on desktop */
+            .header {
+                padding: 20px 60px;
+            }
+
+            /* Wider content on desktop */
+            .page-title-section {
+                padding: 30px 60px 10px 60px;
+            }
+            .search-filter-row {
+                padding: 10px 60px;
+                max-width: 800px;
+            }
+            .genre-scroll {
+                padding: 10px 60px 20px 60px;
+            }
+            .section-header {
+                padding: 0 60px 15px 60px;
+            }
+            .cards-scroll {
+                padding: 0 60px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- 1. App Header -->
+    <header class="header">
+        <div class="header-left">
+            <button class="icon-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            </button>
+            <div class="header-logo">
+                <a href="index.html"><img src="https://i.ibb.co/8JWh91Z/Untitled-design.png" alt="Star" style="height:24px;"></a>
+            </div>
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <a href="index.html">Home</a>
+                <a href="movie.html">Movies</a>
+                <a href="tvshow.html" class="active">TV Shows</a>
+                <a href="index.html">My List</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <button class="icon-btn" onclick="window.location.href='search.html'">
+                <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </button>
+            <button class="icon-btn bell-container" onclick="window.location.href='notifications.html'">
+                <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <div class="badge">3</div>
+            </button>
+            <img src="https://i.ibb.co/L5Q8m2V/avatar.jpg" alt="Profile" class="profile-pic" onerror="this.src='https://placehold.co/100/1a1c23/ffffff?text=U'">
+        </div>
+    </header>
+
+    <!-- 2. Page Title Section -->
+    <div class="page-title-section">
+        <div class="page-title">
+            <div class="title-accent"></div>
+            TV Shows
+        </div>
+        <div class="page-subtitle">Discover and binge-watch the best TV shows.</div>
+    </div>
+
+    <!-- 3. Search & Filters -->
+    <div class="search-filter-row">
+        <div class="search-box" onclick="window.location.href='search.html'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" class="search-input" placeholder="Search TV shows, genres..." readonly>
+        </div>
+        <button class="filter-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            Filters
+        </button>
+    </div>
+
+    <!-- 4. Genre Pills -->
+    <div class="genre-scroll hide-scroll">
+        <div class="genre-pill active" onclick="window.location.href='search.html'">
+            <svg stroke="var(--accent-red)" viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+            All Shows
+        </div>
+        <div class="genre-pill" onclick="window.location.href='search.html'">
+            <svg stroke="#ff9800" fill="none" viewBox="0 0 24 24" stroke-width="2"><path d="M14.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M20.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M8.5 10c-.83 0-1.5-.67-1.5-1.5v-5c0-.83.67-1.5 1.5-1.5s1.5.67 1.5 1.5v5c0 .83-.67 1.5-1.5 1.5z"/><path d="M22 14v4c0 2.21-1.79 4-4 4H6c-2.21 0-4-1.79-4-4v-4c0-2.21 1.79-4 4-4h12c2.21 0 4 1.79 4 4z"/></svg>
+            Action
+        </div>
+        <div class="genre-pill" onclick="window.location.href='search.html'">
+            <svg stroke="#9c27b0" fill="none" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            Drama
+        </div>
+        <div class="genre-pill" onclick="window.location.href='search.html'">
+            <svg stroke="#ffd200" fill="none" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+            Comedy
+        </div>
+        <div class="genre-pill" onclick="window.location.href='search.html'">
+            <svg stroke="#00d2d3" fill="none" viewBox="0 0 24 24" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Thriller
+        </div>
+        <div class="genre-pill" onclick="window.location.href='search.html'">
+            <svg stroke="#2196f3" fill="none" viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><ellipse cx="12" cy="12" rx="10" ry="4"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+            Sci-Fi
+        </div>
+    </div>
+
+    <!-- 5. Content Rows -->
+    <div id="shows-content-container">
+        <div style="text-align:center; padding: 40px; color: #666;">Loading TV shows...</div>
+    </div>
+
+    <!-- 6. Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="index.html" class="nav-item">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span class="nav-text">Home</span>
+        </a>
+        <a href="movie.html" class="nav-item">
+            <svg viewBox="0 0 24 24" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+            <span class="nav-text">Movies</span>
+        </a>
+        <a href="tvshow.html" class="nav-item active">
+            <svg viewBox="0 0 24 24" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>
+            <span class="nav-text">TV Shows</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            <span class="nav-text">My List</span>
+        </a>
+        <a href="index.html" class="nav-item">
+            <svg viewBox="0 0 24 24" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span class="nav-text">Profile</span>
+        </a>
+    </nav>
+
+    <!-- Supabase Connection & Logic -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js"></script>
+    <script src="supabase-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const container = document.getElementById('shows-content-container');
+            
+            if (!window.supabaseClient) {
+                container.innerHTML = '<div style="color: #E50914; text-align: center; padding: 40px;">Database connection error.</div>';
+                return;
+            }
+
+            // Fetch actual uploaded TV shows
+            const { data, error } = await window.supabaseClient
+                .from('content')
+                .select('*')
+                .eq('type', 'Series')
+                .order('created_at', { ascending: false });
+
+            if (error) {
+                container.innerHTML = '<div style="color: #E50914; text-align: center; padding: 40px;">Error loading content.</div>';
+                return;
+            }
+
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div style="color: #888; text-align: center; padding: 40px;">No TV shows uploaded yet.</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+
+            // Split data logically for the 3 rows
+            // 1. Popular TV Shows (First 5 items)
+            const popularShows = data.slice(0, 5);
+            
+            // 2. Trending Now (Next 5 items, or reverse if not enough)
+            const trendingNow = data.length > 5 ? data.slice(5, 10) : [...data].reverse();
+
+            // 3. Top Rated Shows (Sort by title length or other metric for variety)
+            const topRated = [...data].sort((a, b) => (b.title || '').length - (a.title || '').length).slice(0, 6);
+
+            // Generate HTML for a Row
+            function generateRow(title, iconHtml, items) {
+                if(items.length === 0) return '';
+                
+                let cardsHtml = '';
+                items.forEach(item => {
+                    // Random fixed rating based on ID for stability
+                    const rating = (7.5 + ((item.id.charCodeAt(0) % 20) / 10)).toFixed(1); 
+                    const year = item.publish_date ? new Date(item.publish_date).getFullYear() : '2026';
+                    
+                    // Determine seasons string based on episodes if available
+                    let seasonsStr = "1 Season";
+                    try {
+                        const episodes = item.episodes ? (typeof item.episodes === 'string' ? JSON.parse(item.episodes) : item.episodes) : null;
+                        if (episodes && Array.isArray(episodes) && episodes.length > 0) {
+                            seasonsStr = `${episodes.length} Episodes`;
+                        }
+                    } catch(e) {}
+                    
+                    cardsHtml += `
+                    <div class="movie-card" onclick="window.location.href='watch.html?id=${item.id}'">
+                        <div class="poster-wrapper">
+                            <img src="${item.thumb_portrait}" alt="${item.title}" class="poster-img" loading="lazy" onerror="this.src='https://placehold.co/300x450/1a1a2e/ffffff?text=Poster+Not+Found'">
+                            <div class="hd-badge">HD</div>
+                            <div class="play-overlay">
+                                <div class="play-circle">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-title">${item.title}</div>
+                        <div class="card-meta">${seasonsStr} • ${year}</div>
+                        <div class="card-rating">⭐ ${rating}</div>
+                    </div>`;
+                });
+
+                return `
+                <div class="content-section">
+                    <div class="section-header">
+                        <div class="section-title">
+                            ${iconHtml}
+                            ${title}
+                        </div>
+                        <a href="search.html" class="view-all">View all ></a>
+                    </div>
+                    <div class="cards-scroll hide-scroll">
+                        ${cardsHtml}
+                    </div>
+                </div>`;
+            }
+
+            // Append Rows
+            container.innerHTML += generateRow(
+                'Popular TV Shows', 
+                '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-red)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>', 
+                popularShows
+            );
+
+            container.innerHTML += generateRow(
+                'Trending Now', 
+                '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--accent-red)" stroke-width="2"><path d="M15.2 22a7.1 7.1 0 0 0-2.6-4.8c-1.6-1.4-2.8-2.6-2.5-4.5.3-2 1.6-3.4 3-4.5-1.5 1-3.6 1.7-4.5 3.5-.8 1.6-.3 3.6 1 4.8A7.2 7.2 0 0 0 10 22"/><path d="M12 2C7 6 4 10.4 4 15a8 8 0 0 0 16 0c0-4.6-3-9-8-13z"/></svg>', 
+                trendingNow
+            );
+
+            container.innerHTML += generateRow(
+                'Top Rated Shows', 
+                '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff9800" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>', 
+                topRated
+            );
+        });
+    </script>
+</body>
+</html>

@@ -316,7 +316,7 @@ class StreamVault {
         return `
         <div class="movie-card card" data-id="${item.id}" onclick="window.app.navigateToWatch('${item.id}')">
             <div class="poster-container">
-                <img src="${item.thumbPortrait}" alt="${item.title}" loading="lazy" class="poster-img"/>
+                <img src="${item.thumbPortrait}" alt="${item.title}" loading="lazy" class="poster-img" onerror="this.src='https://placehold.co/300x450/1a1a2e/ffffff?text=Poster+Not+Found'"/>
                 <span class="badge-hd">${item.type === 'Series' ? 'SERIES' : 'HD'}</span>
             </div>
             <div class="movie-title">${item.title}</div>
