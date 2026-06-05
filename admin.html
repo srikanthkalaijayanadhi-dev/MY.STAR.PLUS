@@ -55,7 +55,7 @@
         <div class="nav-container">
             <div class="nav-left">
                 <a href="index.html" class="logo" id="admin-logo">
-                    HEART<span class="heart-pulse">❤️</span>BEAT <span class="admin-badge-text">ADMIN</span>
+                    <img src="https://i.ibb.co/8JWh91Z/Untitled-design.png" alt="HEART BEAT" class="logo-img"> <span class="admin-badge-text">ADMIN</span>
                 </a>
             </div>
             <div class="nav-right" style="gap: 0.6rem;">
@@ -136,6 +136,10 @@
                         <input type="url" id="videoLink" placeholder="https://example.com/movie.mp4">
                         <span class="form-hint">The direct link used when 'Watch Now' is clicked.</span>
                         
+                        <label for="downloadLink" style="margin-top: 1rem;">Download Link (Optional)</label>
+                        <input type="url" id="downloadLink" placeholder="https://example.com/download.mp4" style="margin-top: 0.5rem;">
+                        <span class="form-hint">The direct link for the user to download the content.</span>
+
                         <label for="embedCode" style="margin-top: 1rem;">Embed Code (HTML iframe)</label>
                         <textarea id="embedCode" rows="3" placeholder="<iframe src='...'></iframe>" style="width: 100%; border-radius: 8px; padding: 0.8rem; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2);"></textarea>
                         <span class="form-hint">Paste the full iframe HTML snippet to play directly on the Watch page.</span>
@@ -176,75 +180,6 @@
                     <!-- Dynamic list items will be injected here -->
                     <div class="loading-status">
                         <p>Loading content...</p>
-                    </div>
-                </div>
-            </section>
-        </div>
-
-        <div class="admin-card"
-            style="margin-top: 2rem; background: linear-gradient(135deg, rgba(229, 9, 20, 0.1), rgba(0,0,0,0)); border: 1px solid rgba(229, 9, 20, 0.2); text-align: center; padding: 2.5rem; border-radius: 12px;">
-            <p
-                style="color: #aaa; margin: 0 0 0.5rem; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; font-weight: 500;">
-                Wallet Available Balance</p>
-            <h2 id="admin-display-balance"
-                style="color: #81c784; font-size: 3.5rem; margin: 0; font-weight: 700; text-shadow: 0 0 20px rgba(129, 199, 132, 0.3);">
-                ₹...</h2>
-        </div>
-
-        <div class="admin-grid" style="margin-top: 2rem;">
-            <!-- Payment Panel Section -->
-            <section class="admin-card">
-                <h2 class="admin-section-title" style="margin-bottom: 1.5rem;">
-                    <span>💳</span> Request Withdrawal
-                </h2>
-                <form id="withdrawal-form">
-                    <div class="form-group">
-                        <label for="withdrawAmount">Amount (Min ₹1200)</label>
-                        <input type="number" id="withdrawAmount" placeholder="e.g. 5000" min="1200" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="withdrawMethod">Withdrawal Method</label>
-                        <select id="withdrawMethod" required onchange="app.togglePaymentFields()">
-                            <option value="UPI">UPI</option>
-                            <option value="Bank Transfer">Bank Transfer</option>
-                        </select>
-                    </div>
-
-                    <div id="upi-fields" class="form-group">
-                        <label for="upiId">UPI ID</label>
-                        <input type="text" id="upiId" placeholder="e.g. username@ybl">
-                    </div>
-
-                    <div id="bank-fields" class="form-group hidden-initial" style="display: none;">
-                        <label for="bankName">Bank Name</label>
-                        <input type="text" id="bankName" placeholder="e.g. State Bank of India" style="margin-bottom: 1rem;">
-
-                        <label for="bankAccount">Bank Account Number</label>
-                        <input type="text" id="bankAccount" placeholder="e.g. 1234567890" style="margin-bottom: 1rem;">
-                        
-                        <label for="ifscCode">IFSC Code</label>
-                        <input type="text" id="ifscCode" placeholder="e.g. SBIN0001234" style="margin-bottom: 1rem;">
-
-                        <label for="branchName">Branch Name</label>
-                        <input type="text" id="branchName" placeholder="e.g. Main Branch">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary publish-submit-btn">
-                        💸 Submit Request
-                    </button>
-                    <p id="withdraw-msg" style="margin-top: 1rem; font-size: 0.9rem;"></p>
-                </form>
-            </section>
-
-            <!-- Withdrawal History -->
-            <section class="admin-card">
-                <h2 class="admin-section-title">
-                    <span>📜</span> Withdrawal History
-                </h2>
-                <div class="content-list" id="withdrawal-history-list">
-                    <div class="loading-status">
-                        <p>Loading history...</p>
                     </div>
                 </div>
             </section>

@@ -32,7 +32,7 @@
         <div class="nav-container">
             <div class="nav-left">
                 <a href="index.html" class="logo">
-                    HEART<span class="heart-pulse">❤️</span>BEAT
+                    <img src="https://i.ibb.co/8JWh91Z/Untitled-design.png" alt="HEART BEAT" class="logo-img">
                 </a>
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
@@ -68,6 +68,7 @@
                 
                 <div class="watch-actions">
                     <button id="watch-now-btn" class="btn btn-primary btn-large">▶ Watch Now</button>
+                    <button id="watch-download-btn" class="btn btn-secondary btn-large" style="display: none;">⬇️ Download</button>
                     <button class="btn btn-secondary btn-large">+ Add to List</button>
                 </div>
 
@@ -168,6 +169,7 @@
                 publishDate: data.publish_date,
                 featured: data.featured,
                 videoLink: data.video_link,
+                downloadLink: data.download_link,
                 embedCode: data.embed_code,
                 episodes: data.episodes || []
             };
@@ -193,6 +195,15 @@
 
             // Watch Now / Episodes Button
             const watchBtn = document.getElementById('watch-now-btn');
+            const downloadBtn = document.getElementById('watch-download-btn');
+
+            if (item.downloadLink && item.downloadLink.trim() !== '') {
+                downloadBtn.style.display = 'inline-flex';
+                downloadBtn.onclick = () => window.open(item.downloadLink, '_blank');
+            } else {
+                downloadBtn.style.display = 'none';
+            }
+
             if (item.type === 'Series') {
                 watchBtn.innerHTML = '📜 View Episodes';
                 watchBtn.onclick = () => {
@@ -206,12 +217,15 @@
                     epSection.style.display = 'block';
                     epGrid.innerHTML = item.episodes.map((ep, index) => {
                         return `
-                        <div class="episode-card" style="cursor:pointer" onclick="playEpisode(${index})">
-                            <div class="episode-info">
+                        <div class="episode-card">
+                            <div class="episode-info" style="cursor:pointer; flex: 1;" onclick="playEpisode(${index})">
                                 <h4>${ep.title}</h4>
                                 <p>Episode ${index + 1}</p>
                             </div>
-                            <div class="ep-play-btn">▶</div>
+                            <div class="ep-actions" style="display: flex; align-items: center; gap: 0.8rem;">
+                                ${ep.downloadLink ? `<button class="btn btn-secondary btn-small" onclick="window.open('${ep.downloadLink}', '_blank')" style="padding: 0.4rem; border-radius: 6px; border: none; font-size: 1rem; min-width: auto; height: auto;" title="Download Episode">⬇️</button>` : ''}
+                                <div class="ep-play-btn" style="cursor:pointer;" onclick="playEpisode(${index})">▶</div>
+                            </div>
                         </div>
                         `;
                     }).join('');

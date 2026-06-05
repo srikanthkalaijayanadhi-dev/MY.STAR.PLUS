@@ -79,6 +79,7 @@ class StreamVault {
             publishDate: item.publish_date,
             featured: item.featured,
             videoLink: item.video_link,
+            downloadLink: item.download_link,
             embedCode: item.embed_code,
             episodes: item.episodes || []
         }));
@@ -103,6 +104,7 @@ class StreamVault {
             publish_date: newItem.publishDate,
             featured: newItem.featured,
             video_link: newItem.videoLink,
+            download_link: newItem.downloadLink,
             embed_code: newItem.embedCode,
             episodes: newItem.episodes
         };
@@ -380,8 +382,9 @@ class StreamVault {
                     rows.forEach(row => {
                         const title = row.querySelector('.ep-title-input').value;
                         const link = row.querySelector('.ep-link-input').value;
+                        const downloadLink = row.querySelector('.ep-download-input').value;
                         const embedCode = row.querySelector('.ep-embed-input').value;
-                        if (title && (link || embedCode)) episodes.push({ title, link, embedCode });
+                        if (title && (link || embedCode)) episodes.push({ title, link, downloadLink, embedCode });
                     });
                 }
 
@@ -395,6 +398,7 @@ class StreamVault {
                     publishDate: document.getElementById('publishDate').value || new Date().toISOString().split('T')[0],
                     featured: document.getElementById('is-featured').checked,
                     videoLink: document.getElementById('videoLink').value,
+                    downloadLink: document.getElementById('downloadLink').value,
                     embedCode: document.getElementById('embedCode').value || '',
                     episodes: episodes
                 };
@@ -601,6 +605,7 @@ class StreamVault {
         document.getElementById('publishDate').value = item.publishDate;
         document.getElementById('is-featured').checked = item.featured;
         document.getElementById('videoLink').value = item.videoLink || '';
+        document.getElementById('downloadLink').value = item.downloadLink || '';
         document.getElementById('embedCode').value = item.embedCode || '';
 
         // Handle Episodes
@@ -657,7 +662,7 @@ class StreamVault {
         }
     }
 
-    addEpisodeRow(data = { title: '', link: '', embedCode: '' }) {
+    addEpisodeRow(data = { title: '', link: '', downloadLink: '', embedCode: '' }) {
         const container = document.getElementById('episodes-container');
         const row = document.createElement('div');
         row.className = 'episode-row';
@@ -674,6 +679,7 @@ class StreamVault {
                 <button type="button" class="btn btn-secondary btn-small" onclick="this.closest('.episode-row').remove()" style="padding: 0.4rem 0.8rem; background: #e57373; color: white; border: none; min-width: auto; height: auto;">Remove</button>
             </div>
             <input type="url" placeholder="Watch Now Link (Stream URL)" value="${data.link || ''}" class="ep-link-input" style="margin-bottom: 0.8rem; width: 100%;">
+            <input type="url" placeholder="Download Link (Optional)" value="${data.downloadLink || ''}" class="ep-download-input" style="margin-bottom: 0.8rem; width: 100%;">
             <textarea placeholder="Embed Code (HTML iframe Option)" class="ep-embed-input" rows="2" style="margin-bottom: 0; width: 100%; border-radius: 8px; padding: 0.8rem; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); font-family: monospace;">${data.embedCode || ''}</textarea>
         `;
         container.appendChild(row);
