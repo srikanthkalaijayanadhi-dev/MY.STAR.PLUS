@@ -292,6 +292,7 @@
         
         header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
         .header-icon { background: none; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .header-right { display: flex; align-items: center; gap: 16px; }
         .logo-container { display: flex; flex-direction: column; align-items: center; }
         .logo { display: flex; align-items: center; gap: 6px; font-size: 18px; font-weight: 700; font-style: italic; }
         .star-icon { color: #FF9D00; font-size: 22px; filter: drop-shadow(0 0 8px rgba(255, 157, 0, 0.8)); }
@@ -361,9 +362,15 @@
                     <a href="index.html">My List</a>
                 </div>
             </div>
-            <button class="header-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            </button>
+            <div class="header-right">
+                <button class="header-icon" onclick="window.location.href='mylist.html'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                </button>
+                <button class="header-icon bell-container" onclick="window.location.href='notifications.html'" style="position:relative;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <div class="notification-dot" id="nav-notif-dot" style="display:none; width: 8px; height: 8px; background-color: var(--accent-red); border-radius: 50%; position: absolute; top: 0; right: 0;"></div>
+                </button>
+            </div>
         </header>
 
         <!-- Loading State -->
@@ -403,14 +410,14 @@
                 <span class="nav-label">TV Shows</span>
                 <div class="nav-indicator"></div>
             </a>
-            <a href="#" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-                <span class="nav-label">My List</span>
+            <a href="secret_pay.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+                <span class="nav-label">Shopping</span>
                 <div class="nav-indicator"></div>
             </a>
-            <a href="login.html" class="nav-item">
-                <svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                <span class="nav-label">Profile</span>
+            <a href="search.html" class="nav-item">
+                <svg class="nav-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <span class="nav-label">Search</span>
                 <div class="nav-indicator"></div>
             </a>
         </nav>
@@ -422,6 +429,12 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
+            // Notification dot logic
+            if (localStorage.getItem('notificationsRead') !== 'true') {
+                const dot = document.getElementById('nav-notif-dot');
+                if (dot) dot.style.display = 'block';
+            }
+
             const urlParams = new URLSearchParams(window.location.search);
             const contentId = urlParams.get('id');
 
@@ -532,6 +545,9 @@
                             <span style="color:#E50914; font-weight:800; letter-spacing:-1px;">IMDb</span> 8.9
                         </div>
                         <p class="series-synopsis">${item.desc ? item.desc.substring(0, 110) + '...' : ''} <a href="#" class="series-readmore">... Read more</a></p>
+                        <button class="btn-secondary" style="width:100%; margin-top:10px; padding: 8px; font-size:12px; font-weight:bold;" id="add-list-btn-${item.id}" onclick="addToList('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.category || item.type}', '${item.thumbPortrait}')">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add to List
+                        </button>
                     </div>
                 </div>
 
@@ -548,6 +564,7 @@
                 </div>` : ''}
             `;
             document.getElementById('dynamic-content').innerHTML = html;
+            updateListBtnState(item.id, isItemInList(item.id));
         }
 
         function renderMovieUI(item) {
@@ -584,7 +601,7 @@
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch Now
                             </button>
                             <div style="display:flex; gap:12px; width: 100%;">
-                                <button class="btn-secondary">
+                                <button class="btn-secondary" id="add-list-btn-${item.id}" onclick="addToList('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.category || item.type}', '${item.thumbPortrait}')">
                                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add to List
                                 </button>
                                 <button class="btn-secondary">
@@ -600,6 +617,7 @@
                 </div>
             `;
             document.getElementById('dynamic-content').innerHTML = html;
+            updateListBtnState(item.id, isItemInList(item.id));
         }
 
         function renderRecommendations(items) {
@@ -616,6 +634,40 @@
             });
             container.innerHTML = html;
         }
+
+        window.addToList = function(id, title, type, poster) {
+            let myList = JSON.parse(localStorage.getItem('myList') || '[]');
+            const exists = myList.find(i => String(i.id) === String(id));
+            if (!exists) {
+                myList.push({ id, title, type, poster });
+                localStorage.setItem('myList', JSON.stringify(myList));
+                updateListBtnState(id, true);
+                window.dispatchEvent(new Event('myListUpdated'));
+            } else {
+                myList = myList.filter(i => String(i.id) !== String(id));
+                localStorage.setItem('myList', JSON.stringify(myList));
+                updateListBtnState(id, false);
+                window.dispatchEvent(new Event('myListUpdated'));
+            }
+        };
+
+        window.updateListBtnState = function(id, isAdded) {
+            const btn = document.getElementById('add-list-btn-' + id);
+            if(btn) {
+                if(isAdded) {
+                    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Added';
+                    btn.style.color = 'var(--accent-red)';
+                } else {
+                    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add to List';
+                    btn.style.color = 'white';
+                }
+            }
+        };
+
+        window.isItemInList = function(id) {
+            const myList = JSON.parse(localStorage.getItem('myList') || '[]');
+            return myList.some(i => String(i.id) === String(id));
+        };
 
         // Horizontal scroll script
         const slider = document.getElementById('recommendations-scroll');
