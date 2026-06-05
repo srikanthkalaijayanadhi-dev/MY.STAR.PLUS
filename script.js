@@ -182,6 +182,7 @@ class StreamVault {
 
         // Determine which items to show
         let items = this.content;
+        let searchQuery = '';
         if (filter === 'Movie') {
             items = this.content.filter(i => i.type === 'Movie');
         } else if (filter === 'Series') {
@@ -189,6 +190,13 @@ class StreamVault {
         } else if (filter === 'Trending') {
             // Trending = sorted by publish date descending (most recent first)
             items = [...this.content].sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate));
+        } else if (filter.startsWith('search:')) {
+            searchQuery = filter.replace('search:', '').toLowerCase();
+            items = this.content.filter(i => 
+                (i.title && i.title.toLowerCase().includes(searchQuery)) || 
+                (i.desc && i.desc.toLowerCase().includes(searchQuery)) ||
+                (i.category && i.category.toLowerCase().includes(searchQuery))
+            );
         }
         // 'all' keeps original order (newest first from Supabase)
 
@@ -199,7 +207,10 @@ class StreamVault {
                 Series:   { icon: '📺', title: 'Series',    sub: 'Binge-worthy series, season by season' },
                 Trending: { icon: '🔥', title: 'Trending',  sub: 'What everyone is watching right now' }
             };
-            const h = hdrMap[filter] || { icon: '📁', title: filter, sub: '' };
+            let h = hdrMap[filter] || { icon: '📁', title: filter, sub: '' };
+            if (filter.startsWith('search:')) {
+                h = { icon: '🔍', title: `Search Results`, sub: `Showing results for "${searchQuery}"` };
+            }
             const hdr = document.createElement('div');
             hdr.className = 'page-filter-header';
             hdr.innerHTML = `
