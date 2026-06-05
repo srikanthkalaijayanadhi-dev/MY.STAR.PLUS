@@ -314,11 +314,11 @@
                 </div>
             </div>
             <div class="header-right">
-                <button class="header-icon">
+                <button class="header-icon" onclick="window.location.href='tvshow.html'">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><path d="M17 2l-5 5-5-5"/></svg>
                 </button>
-                <button class="header-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                <button class="header-icon" onclick="window.location.href='movie.html'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>
                 </button>
             </div>
         </header>
@@ -333,10 +333,10 @@
             <!-- Custom Controls Overlay -->
             <div class="custom-controls" id="custom-controls">
                 <div class="controls-top">
-                    <button class="header-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
-                    <button class="header-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button>
+                    <button class="header-icon" id="player-back-btn" onclick="history.back()"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <button class="header-icon" id="lock-btn"><svg id="lock-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></button>
                 </div>
-                <div class="controls-center">
+                <div class="controls-center" id="controls-center">
                     <button class="skip-btn" id="skip-back-btn">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                         <span style="position:absolute; top:9px;">10</span>
@@ -349,7 +349,7 @@
                         <span style="position:absolute; top:9px;">10</span>
                     </button>
                 </div>
-                <div class="controls-bottom">
+                <div class="controls-bottom" id="controls-bottom">
                     <span class="time-text" id="time-current">0:00</span>
                     <input type="range" id="progress-bar" value="0" min="0" step="0.1">
                     <span class="time-text" id="time-total">0:00</span>
@@ -365,9 +365,8 @@
                 <div class="title-row">
                     <h1 class="ep-title" id="meta-title">Episode 1</h1>
                     <div class="actions-row">
-                        <div class="action-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> My List</div>
-                        <div class="action-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg> Like</div>
-                        <div class="action-item"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share</div>
+                        <div class="action-item" id="like-btn"><svg id="like-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg> Like</div>
+                        <div class="action-item" id="share-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share</div>
                     </div>
                 </div>
                 <div class="badges-row" id="meta-badges">
@@ -545,6 +544,41 @@
             } else {
                 document.getElementById('video-target').innerHTML = '<div style="color:#e57373; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);">No video available.</div>';
             }
+
+            // Like Button Dummy
+            const likeBtn = document.getElementById('like-btn');
+            if (likeBtn) {
+                likeBtn.addEventListener('click', () => {
+                    const icon = document.getElementById('like-icon');
+                    if (icon.getAttribute('fill') === 'none') {
+                        icon.setAttribute('fill', 'currentColor');
+                        likeBtn.style.color = 'var(--accent-red)';
+                        icon.setAttribute('stroke', 'var(--accent-red)');
+                    } else {
+                        icon.setAttribute('fill', 'none');
+                        likeBtn.style.color = 'white';
+                        icon.setAttribute('stroke', 'currentColor');
+                    }
+                });
+            }
+
+            // Share Button
+            const shareBtn = document.getElementById('share-btn');
+            if (shareBtn) {
+                shareBtn.addEventListener('click', () => {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: document.title,
+                            url: window.location.href
+                        }).catch(console.error);
+                    } else {
+                        navigator.clipboard.writeText(window.location.href);
+                        const originalText = shareBtn.innerHTML;
+                        shareBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied';
+                        setTimeout(() => shareBtn.innerHTML = originalText, 2000);
+                    }
+                });
+            }
         });
 
         function setupCustomControls() {
@@ -581,7 +615,8 @@
                 progressBar.style.background = `linear-gradient(to right, var(--accent-red) ${value}%, #333 ${value}%)`;
             });
 
-            const togglePlay = () => {
+            const togglePlay = (e) => {
+                if (window.isPlayerLocked) return;
                 if (video.paused) {
                     video.play();
                     playPauseBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
@@ -594,16 +629,24 @@
             playPauseBtn.addEventListener('click', togglePlay);
             video.addEventListener('click', togglePlay);
 
-            skipBackBtn.addEventListener('click', () => video.currentTime = Math.max(0, video.currentTime - 10));
-            skipFwdBtn.addEventListener('click', () => video.currentTime = Math.min(video.duration, video.currentTime + 10));
+            skipBackBtn.addEventListener('click', () => {
+                if (window.isPlayerLocked) return;
+                video.currentTime = Math.max(0, video.currentTime - 10);
+            });
+            skipFwdBtn.addEventListener('click', () => {
+                if (window.isPlayerLocked) return;
+                video.currentTime = Math.min(video.duration, video.currentTime + 10);
+            });
 
             progressBar.addEventListener('input', () => {
+                if (window.isPlayerLocked) return;
                 video.currentTime = progressBar.value;
                 const value = (progressBar.value / progressBar.max) * 100;
                 progressBar.style.background = `linear-gradient(to right, var(--accent-red) ${value}%, #333 ${value}%)`;
             });
 
             fullscreenBtn.addEventListener('click', () => {
+                if (window.isPlayerLocked) return;
                 const container = document.getElementById('player-container');
                 if (!document.fullscreenElement) {
                     if (container.requestFullscreen) container.requestFullscreen();
@@ -611,6 +654,32 @@
                 } else {
                     if (document.exitFullscreen) document.exitFullscreen();
                     else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                }
+            });
+
+            // Lock mode
+            window.isPlayerLocked = false;
+            const lockBtn = document.getElementById('lock-btn');
+            const lockIcon = document.getElementById('lock-icon');
+            const controlsCenter = document.getElementById('controls-center');
+            const controlsBottom = document.getElementById('controls-bottom');
+            const playerBackBtn = document.getElementById('player-back-btn');
+
+            lockBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                window.isPlayerLocked = !window.isPlayerLocked;
+                if (window.isPlayerLocked) {
+                    lockIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>';
+                    lockBtn.style.color = 'var(--accent-red)';
+                    if (controlsCenter) controlsCenter.style.visibility = 'hidden';
+                    if (controlsBottom) controlsBottom.style.visibility = 'hidden';
+                    if (playerBackBtn) playerBackBtn.style.visibility = 'hidden';
+                } else {
+                    lockIcon.innerHTML = '<rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 9.9-1"/>';
+                    lockBtn.style.color = 'white';
+                    if (controlsCenter) controlsCenter.style.visibility = 'visible';
+                    if (controlsBottom) controlsBottom.style.visibility = 'visible';
+                    if (playerBackBtn) playerBackBtn.style.visibility = 'visible';
                 }
             });
 
