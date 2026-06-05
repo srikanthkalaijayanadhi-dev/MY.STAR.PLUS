@@ -294,10 +294,46 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
     <main id="shopping-container" style="padding: 80px 20px 100px 20px; max-width: 1400px; margin: 0 auto;">
+        <div class="global-ad-slot" data-position="top"></div>
+        <div style="display: flex; justify-content: center; margin: 20px 0; width: 100%; overflow: hidden;">
+            <script>
+                atOptions = {
+                    'key' : 'b695c55c7854dd20a9652ca53aa5c647',
+                    'format' : 'iframe',
+                    'height' : 60,
+                    'width' : 468,
+                    'params' : {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/b695c55c7854dd20a9652ca53aa5c647/invoke.js"></script>
+        </div>
         
-        <div id="shop-content">
+        <div id="shop-hero-container"></div>
+        
+        <div id="shop-search-container" style="display: none; margin-bottom: 20px; position: relative; max-width: 600px;">
+            <svg style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5);" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="shop-search-input" placeholder="Search products..." style="width: 100%; padding: 12px 40px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; color: white; font-size: 1rem; outline: none; transition: border-color 0.3s;">
+            <button id="shop-search-clear" style="display: none; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;">✕</button>
+        </div>
+
+        <div id="shop-categories-container"></div>
+        
+        <div class="global-ad-slot" data-position="middle"></div>
+        <div style="display: flex; justify-content: center; margin: 20px 0; width: 100%; overflow: hidden;">
+            <script>
+                atOptions = {
+                    'key' : 'b695c55c7854dd20a9652ca53aa5c647',
+                    'format' : 'iframe',
+                    'height' : 60,
+                    'width' : 468,
+                    'params' : {}
+                };
+            </script>
+            <script src="https://www.highperformanceformat.com/b695c55c7854dd20a9652ca53aa5c647/invoke.js"></script>
+        </div>
+
+        <div id="shop-grid-container">
             <div class="loading-state">
                 <h2>Loading Shop...</h2>
                 <p>Bringing you the best deals.</p>
@@ -305,6 +341,20 @@
         </div>
 
     </main>
+
+    <div class="global-ad-slot" data-position="bottom"></div>
+    <div style="display: flex; justify-content: center; margin: 20px 0 80px 0; width: 100%; overflow: hidden;">
+        <script>
+            atOptions = {
+                'key' : 'b695c55c7854dd20a9652ca53aa5c647',
+                'format' : 'iframe',
+                'height' : 60,
+                'width' : 468,
+                'params' : {}
+            };
+        </script>
+        <script src="https://www.highperformanceformat.com/b695c55c7854dd20a9652ca53aa5c647/invoke.js"></script>
+    </div>
 
     <!-- Bottom Navigation Bar -->
     <nav class="bottom-nav">
@@ -347,17 +397,35 @@
         </div>
     </div>
 
+    <script src="script.js"></script>
     <script>
         let allProducts = [];
         let currentFilter = 'All';
+        let searchQuery = '';
 
         document.addEventListener('DOMContentLoaded', async () => {
             await fetchProducts();
+            
+            const searchInput = document.getElementById('shop-search-input');
+            const searchClear = document.getElementById('shop-search-clear');
+            
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.trim().toLowerCase();
+                searchClear.style.display = searchQuery ? 'block' : 'none';
+                renderGrid();
+            });
+            
+            searchClear.addEventListener('click', () => {
+                searchInput.value = '';
+                searchQuery = '';
+                searchClear.style.display = 'none';
+                renderGrid();
+            });
         });
 
         async function fetchProducts() {
             if (!supabase) {
-                document.getElementById('shop-content').innerHTML = '<div class="loading-state"><h2>Error</h2><p>Database connection not initialized.</p></div>';
+                document.getElementById('shop-grid-container').innerHTML = '<div class="loading-state"><h2>Error</h2><p>Database connection not initialized.</p></div>';
                 return;
             }
 
@@ -369,38 +437,28 @@
 
             if (error) {
                 console.error("Error fetching products:", error);
-                document.getElementById('shop-content').innerHTML = `<div class="loading-state"><h2>Error Loading Products</h2><p>${error.message}</p></div>`;
+                document.getElementById('shop-grid-container').innerHTML = `<div class="loading-state"><h2>Error Loading Products</h2><p>${error.message}</p></div>`;
                 return;
             }
 
             allProducts = data || [];
-            renderShop();
+            
+            if (allProducts.length > 0) {
+                document.getElementById('shop-search-container').style.display = 'block';
+            }
+            
+            renderHero();
+            renderCategories();
+            renderGrid();
         }
 
-        function renderShop() {
-            const container = document.getElementById('shop-content');
-            
-            if (allProducts.length === 0) {
-                container.innerHTML = '<div class="loading-state"><h2>No Products Available</h2><p>Check back later for great deals!</p></div>';
-                return;
-            }
-
-            // Extract unique categories
-            const categories = ['All', ...new Set(allProducts.map(p => p.category).filter(c => c))];
-            
-            let filteredProducts = allProducts;
-            if (currentFilter !== 'All') {
-                filteredProducts = allProducts.filter(p => p.category === currentFilter);
-            }
-
+        function renderHero() {
+            const container = document.getElementById('shop-hero-container');
             const featuredProducts = allProducts.filter(p => p.featured);
             const heroProduct = featuredProducts.length > 0 ? featuredProducts[0] : allProducts[0];
-
-            let html = '';
-
-            // Hero Section (Only show if 'All' is selected)
-            if (currentFilter === 'All' && heroProduct) {
-                html += `
+            
+            if (currentFilter === 'All' && !searchQuery && heroProduct) {
+                container.innerHTML = `
                 <div class="shop-hero" style="background-image: url('${heroProduct.image_url || 'https://placehold.co/1200x600/1a1a2e/fff?text=No+Image'}')">
                     <div class="shop-hero-content">
                         ${heroProduct.featured ? '<span class="product-badge" style="position:static; display:inline-block; margin-bottom:10px;">Featured</span>' : ''}
@@ -413,23 +471,58 @@
                         </div>
                     </div>
                 </div>`;
+            } else {
+                container.innerHTML = '';
             }
+        }
 
-            // Categories
-            if (categories.length > 1) {
-                html += `<div class="categories-pill-scroll">
+        function renderCategories() {
+            const container = document.getElementById('shop-categories-container');
+            const categories = ['All', ...new Set(allProducts.map(p => p.category).filter(c => c))];
+            
+            if (categories.length > 1 && !searchQuery) {
+                container.innerHTML = `<div class="categories-pill-scroll">
                     ${categories.map(cat => `
                         <div class="cat-pill ${cat === currentFilter ? 'active' : ''}" onclick="setFilter('${cat}')">${cat}</div>
                     `).join('')}
                 </div>`;
+            } else {
+                container.innerHTML = '';
+            }
+        }
+
+        function renderGrid() {
+            const container = document.getElementById('shop-grid-container');
+            
+            if (allProducts.length === 0) {
+                container.innerHTML = '<div class="loading-state"><h2>No Products Available</h2><p>Check back later for great deals!</p></div>';
+                return;
+            }
+            
+            let filteredProducts = allProducts;
+            
+            if (searchQuery) {
+                filteredProducts = allProducts.filter(p => 
+                    p.name.toLowerCase().includes(searchQuery) || 
+                    (p.category && p.category.toLowerCase().includes(searchQuery))
+                );
+            } else if (currentFilter !== 'All') {
+                filteredProducts = allProducts.filter(p => p.category === currentFilter);
+            }
+            
+            renderHero(); // Update hero visibility based on search
+            renderCategories(); // Update categories visibility based on search
+
+            let html = '';
+            
+            if (searchQuery) {
+                html += `<h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">Search Results for "${searchQuery}"</h2>`;
+            } else {
+                html += `<h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">${currentFilter === 'All' ? 'Latest Products' : currentFilter + ' Products'}</h2>`;
             }
 
-            // Grid Title
-            html += `<h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: #fff;">${currentFilter === 'All' ? 'Latest Products' : currentFilter + ' Products'}</h2>`;
-
-            // Products Grid
             if (filteredProducts.length === 0) {
-                html += '<p style="color: rgba(255,255,255,0.5);">No products found in this category.</p>';
+                html += '<div class="loading-state" style="padding: 2rem;"><h2>No Products Found</h2><p>Try adjusting your search terms.</p></div>';
             } else {
                 html += `<div class="product-grid">`;
                 filteredProducts.forEach(product => {
@@ -462,7 +555,9 @@
 
         function setFilter(cat) {
             currentFilter = cat;
-            renderShop();
+            renderHero();
+            renderCategories();
+            renderGrid();
         }
 
         function openModal(id) {

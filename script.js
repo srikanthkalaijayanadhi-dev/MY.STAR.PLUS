@@ -979,9 +979,186 @@ class ShopVault {
     }
 }
 
+class AdVault {
+    constructor() {
+        this.ads = [];
+        this.adminAds = [];
+        this.editMode = false;
+        this.currentEditId = null;
+        this.init();
+    }
+
+    async init() {
+        await this.loadGlobalAds();
+        
+        const form = document.getElementById('admin-ad-form');
+        if (form) {
+            this.setupAdminEventListeners(form);
+            this.renderAdminList();
+        }
+    }
+
+    async loadGlobalAds() {
+        if (!supabase) return;
+        const { data, error } = await supabase
+            .from('ads')
+            .select('*')
+            .eq('status', true)
+            .order('display_order', { ascending: true });
+
+        if (!error && data) {
+            this.ads = data;
+            this.injectGlobalAds();
+        }
+    }
+
+    injectGlobalAds() {
+        const slots = document.querySelectorAll('.global-ad-slot');
+        slots.forEach(slot => {
+            const position = slot.dataset.position;
+            const adsForPosition = this.ads.filter(a => a.position === position);
+            
+            if (adsForPosition.length > 0) {
+                const ad = adsForPosition[0];
+                let content = '';
+                
+                // Add styling to make it look native/responsive
+                slot.style.display = 'block';
+                slot.style.margin = '2rem auto';
+                slot.style.width = '100%';
+                slot.style.maxWidth = '1200px';
+                slot.style.textAlign = 'center';
+                slot.style.overflow = 'hidden';
+
+                if (ad.script_code) {
+                    content = ad.script_code;
+                } else if (ad.image_url) {
+                    content = `
+                        <a href="${ad.link_url || '#'}" target="_blank" rel="noopener noreferrer">
+                            <img src="${ad.image_url}" alt="Advertisement" style="width: 100%; border-radius: 12px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+                        </a>`;
+                }
+                
+                slot.innerHTML = content;
+                
+                // Workaround to execute scripts
+                if (ad.script_code) {
+                    this.executeScriptsInElement(slot);
+                }
+            } else {
+                slot.style.display = 'none';
+            }
+        });
+    }
+
+    executeScriptsInElement(element) {
+        const scripts = element.querySelectorAll('script');
+        scripts.forEach(script => {
+            const newScript = document.createElement('script');
+            Array.from(script.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
+            newScript.appendChild(document.createTextNode(script.innerHTML));
+            script.parentNode.replaceChild(newScript, script);
+        });
+    }
+
+    setupAdminEventListeners(form) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const adData = {
+                position: document.getElementById('adPosition').value,
+                image_url: document.getElementById('adImage').value,
+                link_url: document.getElementById('adLink').value,
+                script_code: document.getElementById('adScript').value,
+                display_order: parseInt(document.getElementById('adOrder').value) || 0,
+                status: document.getElementById('adStatus').checked
+            };
+            await this.saveAd(adData);
+        });
+        
+        document.getElementById('ad-cancel-edit-btn').addEventListener('click', () => this.exitEditMode());
+    }
+
+    async saveAd(data) {
+        if (this.editMode && this.currentEditId) {
+            const { error } = await supabase.from('ads').update(data).eq('id', this.currentEditId);
+            if (error) { alert('Error updating ad: ' + error.message); return; }
+            alert('Ad Updated!');
+        } else {
+            const { error } = await supabase.from('ads').insert([data]);
+            if (error) { alert('Error creating ad: ' + error.message); return; }
+            alert('Ad Created!');
+        }
+        this.exitEditMode();
+        window.location.reload(); 
+    }
+
+    renderAdminList() {
+        const listContainer = document.getElementById('admin-ad-list');
+        if (!listContainer) return;
+
+        supabase.from('ads').select('*').order('display_order', { ascending: true }).then(({data, error}) => {
+            if (error || !data || data.length === 0) {
+                listContainer.innerHTML = '<p class="loading-status">No ads found.</p>';
+                return;
+            }
+            this.adminAds = data;
+            listContainer.innerHTML = data.map(item => `
+                <div class="list-item">
+                    <div style="width: 80px; height: 40px; background: #333; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #aaa;">
+                        ${item.image_url ? 'IMAGE' : (item.script_code ? 'SCRIPT' : 'EMPTY')}
+                    </div>
+                    <div class="list-item-info">
+                        <h4>Pos: ${item.position.toUpperCase()} • Order: ${item.display_order}</h4>
+                        <p>${item.status ? 'Active' : 'Hidden'} • ID: ${item.id}</p>
+                    </div>
+                    <div class="list-actions">
+                        <button type="button" class="edit-btn" onclick="adsManager.enterEditMode(${item.id})">Edit</button>
+                        <button type="button" class="delete-btn" onclick="adsManager.deleteAd(${item.id})">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        });
+    }
+
+    enterEditMode(id) {
+        const item = this.adminAds.find(i => i.id === id);
+        if (!item) return;
+        this.editMode = true;
+        this.currentEditId = id;
+        document.getElementById('adPosition').value = item.position;
+        document.getElementById('adImage').value = item.image_url || '';
+        document.getElementById('adLink').value = item.link_url || '';
+        document.getElementById('adScript').value = item.script_code || '';
+        document.getElementById('adOrder').value = item.display_order;
+        document.getElementById('adStatus').checked = item.status;
+        
+        document.getElementById('ad-edit-mode-tag').classList.remove('hidden-initial');
+        document.getElementById('ad-submit-btn').innerHTML = '💾 Save Ad';
+        document.getElementById('ad-cancel-edit-btn').style.display = 'block';
+        window.scrollTo({ top: document.getElementById('admin-ad-form').offsetTop - 100, behavior: 'smooth' });
+    }
+
+    exitEditMode() {
+        this.editMode = false;
+        this.currentEditId = null;
+        document.getElementById('admin-ad-form').reset();
+        document.getElementById('ad-edit-mode-tag').classList.add('hidden-initial');
+        document.getElementById('ad-submit-btn').innerHTML = '🚀 Publish Ad';
+        document.getElementById('ad-cancel-edit-btn').style.display = 'none';
+    }
+
+    async deleteAd(id) {
+        if (confirm('Delete this ad permanently?')) {
+            await supabase.from('ads').delete().eq('id', id);
+            this.renderAdminList();
+        }
+    }
+}
+
 window.auth = new Auth();
 
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new StreamVault();
     window.shop = new ShopVault();
+    window.adsManager = new AdVault();
 });

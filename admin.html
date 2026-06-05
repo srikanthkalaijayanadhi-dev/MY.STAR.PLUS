@@ -302,6 +302,61 @@
                 </div>
             </section>
         </div>
+        <div class="admin-header" style="margin-top: 3rem;">
+            <h1 class="admin-title">Ads Dashboard <span id="ad-edit-mode-tag" class="edit-mode-indicator hidden-initial">EDIT MODE</span></h1>
+            <p class="admin-subtitle">Manage advertisement banners globally.</p>
+        </div>
+
+        <div class="admin-grid">
+            <section class="admin-card">
+                <h2 class="admin-section-title"><span>📢</span> Add New Banner</h2>
+                <form id="admin-ad-form">
+                    <div class="form-group">
+                        <label for="adPosition">Position</label>
+                        <select id="adPosition" required>
+                            <option value="top">Top (Below Header)</option>
+                            <option value="middle">Middle of Content</option>
+                            <option value="bottom">Bottom (Above Footer)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="adImage">Banner Image URL</label>
+                        <input type="url" id="adImage" placeholder="Image URL (optional if using script)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adLink">Destination URL</label>
+                        <input type="url" id="adLink" placeholder="Where the ad goes when clicked...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adScript">Custom Script / HTML (Optional)</label>
+                        <textarea id="adScript" rows="4" placeholder="Paste ad network script here (e.g. <script>...</script>). Overrides image/link if provided."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="adOrder">Display Order (Lower = First)</label>
+                        <input type="number" id="adOrder" value="0" required>
+                    </div>
+
+                    <div class="form-group featured-checkbox-group">
+                        <input type="checkbox" id="adStatus" class="checkbox-input" checked>
+                        <label for="adStatus" class="checkbox-label">Visible (Active) 👁️</label>
+                    </div>
+
+                    <button type="submit" id="ad-submit-btn" class="btn btn-primary publish-submit-btn">🚀 Publish Ad</button>
+                    <button type="button" id="ad-cancel-edit-btn" class="btn btn-secondary" style="width: 100%; margin-top: 0.5rem; display: none;">Cancel Editing</button>
+                </form>
+            </section>
+
+            <section class="admin-card">
+                <h2 class="admin-section-title"><span>📊</span> Manage Ads</h2>
+                <div class="content-list" id="admin-ad-list">
+                    <div class="loading-status"><p>Loading ads...</p></div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <script>
