@@ -217,9 +217,15 @@
         </div>
         
         <!-- Action bar under video -->
-        <div style="width: 100%; display: flex; justify-content: center; margin-top: 1.5rem;">
+        <div style="width: 100%; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;" id="player-action-bar">
+            <a href="#" id="prev-ep-btn" class="download-btn" style="display: none; font-size: 1.1rem; padding: 0.8rem 1.5rem; background-color: #333; color: #fff;">
+                <span style="font-size:1.2rem; margin-right: 0.3rem;">⏮️</span> Prev Episode
+            </a>
             <a href="#" id="player-download-btn" class="download-btn" style="display: none; font-size: 1.1rem; padding: 0.8rem 2.5rem; letter-spacing: 1px;">
                 <span style="font-size:1.4rem; margin-right: 0.3rem;">⬇️</span> Download Video
+            </a>
+            <a href="#" id="next-ep-btn" class="download-btn" style="display: none; font-size: 1.1rem; padding: 0.8rem 1.5rem;">
+                Next Episode <span style="font-size:1.2rem; margin-left: 0.3rem;">⏭️</span>
             </a>
         </div>
         
@@ -318,10 +324,29 @@
 
             // Determine if playing Movie or Episode
             if (ep !== null && data.episodes && data.episodes[ep]) {
-                const epObj = data.episodes[ep];
+                const currentEpIndex = parseInt(ep, 10);
+                const epObj = data.episodes[currentEpIndex];
                 embedCode = epObj.embedCode;
                 displayTitle = `${data.title} - ${epObj.title}`;
                 downloadLink = epObj.downloadLink;
+
+                // Next Episode Button
+                if (data.episodes[currentEpIndex + 1]) {
+                    const nextBtn = document.getElementById('next-ep-btn');
+                    if (nextBtn) {
+                        nextBtn.style.display = 'inline-flex';
+                        nextBtn.href = `player.html?id=${id}&ep=${currentEpIndex + 1}`;
+                    }
+                }
+
+                // Prev Episode Button
+                if (currentEpIndex > 0 && data.episodes[currentEpIndex - 1]) {
+                    const prevBtn = document.getElementById('prev-ep-btn');
+                    if (prevBtn) {
+                        prevBtn.style.display = 'inline-flex';
+                        prevBtn.href = `player.html?id=${id}&ep=${currentEpIndex - 1}`;
+                    }
+                }
             } else {
                 embedCode = data.embed_code;
                 downloadLink = data.download_link;

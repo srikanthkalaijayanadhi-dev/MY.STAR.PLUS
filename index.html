@@ -49,7 +49,8 @@
             </div>
             <div class="nav-right">
                 <div class="search-box">
-                    <span class="search-icon">🔍</span>
+                    <input type="text" id="search-input" placeholder="Search..." class="search-input">
+                    <span class="search-icon" id="search-icon">🔍</span>
                 </div>
 
             </div>
@@ -197,6 +198,32 @@
                 applyFilter(this.dataset.filter || 'all');
             });
         });
+
+        // ── Search functionality ──────────────────────────────────────────
+        const searchInput = document.getElementById('search-input');
+        const searchIcon = document.getElementById('search-icon');
+        
+        if (searchIcon && searchInput) {
+            searchIcon.addEventListener('click', () => {
+                searchInput.classList.toggle('active');
+                if (searchInput.classList.contains('active')) {
+                    searchInput.focus();
+                } else {
+                    searchInput.value = '';
+                    applyFilter('all'); 
+                }
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+                if (query.length > 0) {
+                    if (heroBanner) heroBanner.style.display = 'none';
+                    if (window.app) window.app.renderAll(`search:${query}`);
+                } else {
+                    applyFilter('all');
+                }
+            });
+        }
     </script>
 </body>
 
