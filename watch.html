@@ -61,14 +61,13 @@
             <div class="watch-info">
                 <h1 id="watch-title" class="watch-title">Loading...</h1>
                 <div class="modal-meta watch-meta">
-                    <span class="badge">4K Ultra HD</span>
+                    <span id="watch-quality" class="badge">4K Ultra HD</span>
                     <span id="watch-date" class="publish-date">Published: ...</span>
                     <span id="watch-category" class="badge">Category</span>
                 </div>
                 
                 <div class="watch-actions">
                     <button id="watch-now-btn" class="btn btn-primary btn-large">▶ Watch Now</button>
-                    <button id="watch-download-btn" class="btn btn-secondary btn-large" style="display: none;">⬇️ Download</button>
                     <button class="btn btn-secondary btn-large">+ Add to List</button>
                 </div>
 
@@ -168,6 +167,7 @@
                 desc: data.description,
                 publishDate: data.publish_date,
                 featured: data.featured,
+                quality: data.quality || '4K Ultra HD',
                 videoLink: data.video_link,
                 downloadLink: data.download_link,
                 embedCode: data.embed_code,
@@ -184,6 +184,9 @@
             document.getElementById('watch-title').textContent = item.title;
             document.getElementById('watch-desc').textContent = item.desc || 'No description available.';
             document.getElementById('watch-category').textContent = item.category || 'Uncategorized';
+            if (document.getElementById('watch-quality')) {
+                document.getElementById('watch-quality').textContent = item.quality;
+            }
 
             const date = item.publishDate
                 ? new Date(item.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -195,14 +198,6 @@
 
             // Watch Now / Episodes Button
             const watchBtn = document.getElementById('watch-now-btn');
-            const downloadBtn = document.getElementById('watch-download-btn');
-
-            if (item.downloadLink && item.downloadLink.trim() !== '') {
-                downloadBtn.style.display = 'inline-flex';
-                downloadBtn.onclick = () => window.open(item.downloadLink, '_blank');
-            } else {
-                downloadBtn.style.display = 'none';
-            }
 
             if (item.type === 'Series') {
                 watchBtn.innerHTML = '📜 View Episodes';
@@ -217,13 +212,13 @@
                     epSection.style.display = 'block';
                     epGrid.innerHTML = item.episodes.map((ep, index) => {
                         return `
-                        <div class="episode-card">
+                        <div class="episode-card" style="display: flex; align-items: center; gap: 1rem;">
+                            <img src="${item.thumbPortrait}" alt="Poster" style="width: 45px; height: 45px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.1); cursor: pointer;" onclick="playEpisode(${index})">
                             <div class="episode-info" style="cursor:pointer; flex: 1;" onclick="playEpisode(${index})">
                                 <h4>${ep.title}</h4>
                                 <p>Episode ${index + 1}</p>
                             </div>
                             <div class="ep-actions" style="display: flex; align-items: center; gap: 0.8rem;">
-                                ${ep.downloadLink ? `<button class="btn btn-secondary btn-small" onclick="window.open('${ep.downloadLink}', '_blank')" style="padding: 0.4rem; border-radius: 6px; border: none; font-size: 1rem; min-width: auto; height: auto;" title="Download Episode">⬇️</button>` : ''}
                                 <div class="ep-play-btn" style="cursor:pointer;" onclick="playEpisode(${index})">▶</div>
                             </div>
                         </div>

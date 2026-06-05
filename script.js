@@ -78,6 +78,7 @@ class StreamVault {
             desc: item.description,
             publishDate: item.publish_date,
             featured: item.featured,
+            quality: item.quality || '4K Ultra HD',
             videoLink: item.video_link,
             downloadLink: item.download_link,
             embedCode: item.embed_code,
@@ -103,6 +104,7 @@ class StreamVault {
             description: newItem.desc,
             publish_date: newItem.publishDate,
             featured: newItem.featured,
+            quality: newItem.quality,
             video_link: newItem.videoLink,
             download_link: newItem.downloadLink,
             embed_code: newItem.embedCode,
@@ -397,6 +399,7 @@ class StreamVault {
                     desc: document.getElementById('content').value,
                     publishDate: document.getElementById('publishDate').value || new Date().toISOString().split('T')[0],
                     featured: document.getElementById('is-featured').checked,
+                    quality: document.getElementById('quality') ? document.getElementById('quality').value : '4K Ultra HD',
                     videoLink: document.getElementById('videoLink').value,
                     downloadLink: document.getElementById('downloadLink').value,
                     embedCode: document.getElementById('embedCode').value || '',
@@ -604,6 +607,9 @@ class StreamVault {
         document.getElementById('content').value = item.desc;
         document.getElementById('publishDate').value = item.publishDate;
         document.getElementById('is-featured').checked = item.featured;
+        if (document.getElementById('quality')) {
+            document.getElementById('quality').value = item.quality || '4K Ultra HD';
+        }
         document.getElementById('videoLink').value = item.videoLink || '';
         document.getElementById('downloadLink').value = item.downloadLink || '';
         document.getElementById('embedCode').value = item.embedCode || '';
@@ -680,7 +686,7 @@ class StreamVault {
             </div>
             <input type="url" placeholder="Watch Now Link (Stream URL)" value="${data.link || ''}" class="ep-link-input" style="margin-bottom: 0.8rem; width: 100%;">
             <input type="url" placeholder="Download Link (Optional)" value="${data.downloadLink || ''}" class="ep-download-input" style="margin-bottom: 0.8rem; width: 100%;">
-            <textarea placeholder="Embed Code (HTML iframe Option)" class="ep-embed-input" rows="2" style="margin-bottom: 0; width: 100%; border-radius: 8px; padding: 0.8rem; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); font-family: monospace;">${data.embedCode || ''}</textarea>
+            <textarea placeholder="Embed Code or Video Link (e.g. YouTube, MP4, <iframe>)" class="ep-embed-input" rows="2" style="margin-bottom: 0; width: 100%; border-radius: 8px; padding: 0.8rem; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255, 255, 255, 0.2); font-family: monospace;">${data.embedCode || ''}</textarea>
         `;
         container.appendChild(row);
     }

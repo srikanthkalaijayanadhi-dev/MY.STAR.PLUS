@@ -54,6 +54,30 @@
             color: #e50914;
         }
         
+        .download-btn {
+            background-color: #e50914;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(229, 9, 20, 0.3);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        .download-btn:hover {
+            background-color: #f40612;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(229, 9, 20, 0.5);
+            color: #fff;
+        }
+        
         .playing-title {
             margin: 0;
             font-size: 1.1rem;
@@ -192,6 +216,13 @@
             </div>
         </div>
         
+        <!-- Action bar under video -->
+        <div style="width: 100%; display: flex; justify-content: center; margin-top: 1.5rem;">
+            <a href="#" id="player-download-btn" class="download-btn" style="display: none; font-size: 1.1rem; padding: 0.8rem 2.5rem; letter-spacing: 1px;">
+                <span style="font-size:1.4rem; margin-right: 0.3rem;">⬇️</span> Download Video
+            </a>
+        </div>
+        
         <!-- Native / Banner Ad Code -->
         <div class="ad-zone" id="ad-watch_bottom" style="margin-top: 2rem;"></div>
 
@@ -283,24 +314,64 @@
 
             let embedCode = null;
             let displayTitle = data.title;
+            let downloadLink = null;
 
             // Determine if playing Movie or Episode
             if (ep !== null && data.episodes && data.episodes[ep]) {
                 const epObj = data.episodes[ep];
                 embedCode = epObj.embedCode;
                 displayTitle = `${data.title} - ${epObj.title}`;
+                downloadLink = epObj.downloadLink;
             } else {
                 embedCode = data.embed_code;
+                downloadLink = data.download_link;
             }
 
             // Set UI Titles
             document.getElementById('playing-title').textContent = displayTitle;
             document.title = 'Playing ' + displayTitle + ' | HEARTBEAT';
 
-            // Inject iFrame safely
+            // Show Download Button
+            const dlBtn = document.getElementById('player-download-btn');
+            if (downloadLink && downloadLink.trim() !== '') {
+                dlBtn.style.display = 'flex';
+                dlBtn.onclick = (e) => {
+                    e.preventDefault();
+                    window.open(downloadLink, '_blank');
+                };
+            } else {
+                dlBtn.style.display = 'none';
+            }
+
+            // Inject iFrame or Video safely
             if (embedCode && embedCode.trim() !== '') {
-                document.getElementById('video-target').innerHTML = embedCode;
-                // Force iframe to fill 100% of container
+                let finalEmbed = embedCode.trim();
+                
+                // Check if the input is a direct URL (doesn't start with <)
+                if (!finalEmbed.startsWith('<')) {
+                    // Convert YouTube watch URLs to embed URLs
+                    if (finalEmbed.includes('youtube.com/watch?v=')) {
+                        try {
+                            const videoId = new URL(finalEmbed).searchParams.get('v');
+                            if (videoId) finalEmbed = `https://www.youtube.com/embed/${videoId}`;
+                        } catch(e) {}
+                    } else if (finalEmbed.includes('youtu.be/')) {
+                        const videoId = finalEmbed.split('youtu.be/')[1]?.split('?')[0];
+                        if (videoId) finalEmbed = `https://www.youtube.com/embed/${videoId}`;
+                    }
+                    
+                    // Check if it's a raw video file
+                    if (finalEmbed.match(/\.(mp4|webm|ogg|mkv)$/i)) {
+                        finalEmbed = `<video controls autoplay style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; object-fit: contain;"><source src="${finalEmbed}">Your browser does not support HTML5 video.</video>`;
+                    } else {
+                        // Standard iframe wrap
+                        finalEmbed = `<iframe src="${finalEmbed}" allowfullscreen allow="autoplay; fullscreen" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; border: none;"></iframe>`;
+                    }
+                }
+
+                document.getElementById('video-target').innerHTML = finalEmbed;
+                
+                // Force iframe to fill 100% of container (for pasted iframes)
                 const iframe = document.getElementById('video-target').querySelector('iframe');
                 if (iframe) {
                     iframe.style.width = '100%';
