@@ -39,7 +39,6 @@
                 <a href="#" id="desk-home" class="desktop-nav-item active">Home</a>
                 <a href="movie.html" id="desk-movies" class="desktop-nav-item">Movies</a>
                 <a href="tvshow.html" id="desk-series" class="desktop-nav-item">TV Shows</a>
-                <a href="#" id="desk-mylist" class="desktop-nav-item">My List</a>
             </div>
         </div>
 
@@ -221,12 +220,14 @@
         const searchInput = document.getElementById('search-input');
         const searchIcon = document.getElementById('search-trigger');
         
-        if (searchIcon && searchInput) {
+        if (searchIcon) {
             searchIcon.addEventListener('click', (e) => {
                 e.preventDefault();
                 searchInput.focus();
             });
+        }
 
+        if (searchInput) {
             searchInput.addEventListener('input', (e) => {
                 const query = e.target.value.trim();
                 if (query.length > 0) {
