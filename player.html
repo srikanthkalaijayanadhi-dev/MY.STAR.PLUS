@@ -363,7 +363,7 @@
                         <span style="position:absolute; top:9px;">10</span>
                     </button>
                     <div class="play-pause-btn" id="play-pause-btn">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                     </div>
                     <button class="skip-btn" id="skip-fwd-btn">
                         <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M21 12a9 9 0 1 1-9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
@@ -573,11 +573,12 @@
                         if (videoId) finalEmbed = `https://www.youtube.com/embed/${videoId}`;
                     }
                     
-                    if (finalEmbed.match(/\\.(mp4|webm|ogg|mkv)$/i) || finalEmbed.includes('.mp4')) {
+                    let posterUrl = data.thumb_landscape || data.thumb_portrait || '';
+                    if (finalEmbed.match(/\.(mp4|webm|ogg|mkv)$/i) || finalEmbed.includes('.mp4')) {
                         isDirectVideo = true;
-                        finalEmbed = `<video id="main-video" src="${finalEmbed}" playsinline autoplay style="width: 100%; height: 100%; object-fit: contain;"></video>`;
+                        finalEmbed = `<video id="main-video" src="${finalEmbed}" poster="${posterUrl}" playsinline style="width: 100%; height: 100%; object-fit: contain; background: #000;"></video>`;
                     } else {
-                        finalEmbed = `<iframe src="${finalEmbed}" allowfullscreen allow="autoplay; fullscreen" style="width: 100%; height: 100%; border: none;"></iframe>`;
+                        finalEmbed = `<iframe src="${finalEmbed}" allowfullscreen allow="fullscreen" style="width: 100%; height: 100%; border: none;"></iframe>`;
                     }
                 }
 
